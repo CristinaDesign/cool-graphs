@@ -88,7 +88,7 @@ Default, hover, keyboard focus (3px accent-green ring), selected or on, disabled
 
 People should be able to trust and understand what they see. For every page, screen or chart:
 
-- **Open with a short introduction** that is concise but complete. Two to four sentences, written for the audience in section 1.
+- **Open with a short introduction** that is concise but complete. One to two sentences, written for the audience in section 1.
 - **State the units** for every number, such as € / kg, % of daily need or per 100 kcal. Put them next to the number, in the column heading or in the axis title, not only in the introduction.
 - **Name the data:** what it measures, who produced it, and the date or period it covers.
 - **Say what it does not cover:** estimates, gaps, provisional values, and how a score is calculated.
