@@ -15,7 +15,7 @@ Use this skill for any new page, site, screen or component. The designer is a UX
 
 ## 2. Workflow
 
-1. **Write the introduction first.** Two to four sentences that say what the page shows, the unit of every number (€ / kg, %, per 100 g), where the data comes from, how recent it is, and what it does not cover. If it cannot be written, the page is not clear yet. Always follow this for every page.
+1. **Write the introduction first.** One to two sentences that say what the page shows, the unit of every number (€ / kg, %, per 100 g), where the data comes from, how recent it is, and what it does not cover. If it cannot be written, the page is not clear yet. Always follow this for every page.
 2. **Pick components from the table in `DESIGN.md` section 4.** It lists every component, so do not work from memory. Reuse before inventing.
 3. **Build with tokens only.** Never hard-code a hex colour, pixel size, font or radius. Use `--cg-*` variables. For colour use component tokens where one exists (for example `--cg-table-header-bg`), otherwise semantic ones (`--cg-color-ink`). Never use a primitive (such as `--cg-brown-700`) in a component or page.
 4. **Check both themes** (light and dark) and a phone width of 400 px.

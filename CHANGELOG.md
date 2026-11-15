@@ -3,7 +3,7 @@
 What changed in the design system, newest first. Dates are 2026.
 
 ## 14 November
-- Skill file updated: current token files, per 100 g example, check every state, rules on motion, timers and non-data content, how far a page may go beyond the components, and updating every place when a definition changes.
+- Skill file updated: introductions are one to two sentences (matching DESIGN.md), current token files, per 100 g example, check every state, rules on motion, timers and non-data content, how far a page may go beyond the components, and updating every place when a definition changes.
 - **Chip** component (outline, solid, dashed) added.
 - Example pages added in `examples/`: Vegetable Explorer and Vegetable Face-off.
 
