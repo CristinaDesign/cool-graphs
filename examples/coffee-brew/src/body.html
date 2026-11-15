@@ -1,0 +1,40 @@
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>Coffee brew guide ☕</h1>
+      <p class="lede">Pick your coffee, then follow the steps.</p>
+    </div>
+    <button class="cg-switch" id="theme" type="button" role="switch" aria-checked="false">
+      <span class="cg-switch__track"><span class="cg-switch__knob">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="currentColor"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg>
+      </span></span><span>Dark mode</span>
+    </button>
+  </header>
+
+  <main id="app"></main>
+  <div class="sr" id="live" role="status" aria-live="polite"></div>
+
+  <section class="about" aria-labelledby="about-h">
+    <h2 id="about-h">About this guide</h2>
+    <p>Choose the coffee you are using and follow its steps one at a time on your coffee machine. For each coffee you get the dose in grams (g), the grinder setting (the number on your grinder), the amount in the cup in millilitres (ml), the shot time in seconds (s) and the water temperature in degrees Celsius (°C). The settings come from your own whiteboard, entered on 15 November 2026. One of them is still work in progress; see the notes below.</p>
+    <ul class="units" aria-label="Units used on this page">
+      <li class="cg-chip"><b>g</b> grams</li>
+      <li class="cg-chip"><b>ml</b> millilitres</li>
+      <li class="cg-chip"><b>s</b> seconds</li>
+      <li class="cg-chip"><b>°C</b> degrees Celsius</li>
+    </ul>
+  </section>
+
+  <section class="notes" aria-labelledby="notes-h">
+    <h2 id="notes-h">Data and notes</h2>
+    <ul>
+      <li><b>Source and date:</b> the settings are copied from your whiteboard photos, entered on 15 November 2026. They are your own settings, not measured or checked against the machine.</li>
+      <li><b>Units:</b> dose in grams (g) of ground coffee; grind setting is the number on your grinder; yield in millilitres (ml) of coffee in the cup; shot time in seconds (s) from the start of the shot; temperature in degrees Celsius (°C) of the water, as set on the machine.</li>
+      <li><b>Work in progress:</b> grind 12 for Latera Normal is marked "work in progress" on your board. Its time is written as a single value (30 s), so the target is exactly 30 s, not a range.</li>
+      <li><b>Left out on purpose:</b> a number "60" that appears on two whiteboard photos, because its meaning is not known, and the preinfusion time, as you asked.</li>
+      <li><b>Steps:</b> the order of the steps is a general routine written as a starting point. Only the chapita (a small disc placed on the coffee, for Latera Normal) and the settings come from your board.</li>
+      <li><b>Brands:</b> Latera and Lavazza are coffee brands. Illustrations are your own. Page built with the Cool Graphs design system, draft 7.</li>
+    </ul>
+  </section>
+</div>
