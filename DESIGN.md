@@ -116,7 +116,6 @@ People should be able to trust and understand what they see. For every page, scr
 - **(?)** Clickable chips (filters) are not built. The Chip is read-only.
 - **(?)** Form field errors (a message under an input) are not built yet. The Banner covers page-level messages.
 - The icon set has 20 icons. More can be added from the same Material set when a screen needs them.
-- The GitHub repository is still called `vegetablecharts`. It can be renamed to `cool-graphs` in the repository's settings on GitHub.
 - Table sorting, tooltips, and the chart are not built yet.
 
 ## 9. For AI agents and teammates

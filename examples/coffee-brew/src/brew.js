@@ -25,7 +25,7 @@
   /* ---------- Data: your whiteboard, entered 15 November 2026 ---------- */
   var IMG = { 'latera-normal': '@@IMG_LATERA_NORMAL@@', 'decaf-latera': '@@IMG_DECAF_LATERA@@', 'decaf-lavazza': '@@IMG_DECAF_LAVAZZA@@', bean: '@@IMG_BEAN@@' };
   var COFFEES = [
-    { id: 'latera-normal', name: 'Latera Normal', kind: 'Regular', img: 'latera-normal', alt: 'A blue coffee cup with open eyes and a smile', dose: 18, grind: 12, wip: true, yield: 36, tmin: 30, tmax: 30, temp: 94, chapita: true },
+    { id: 'latera-normal', name: 'Latera Normal', kind: 'Regular', img: 'latera-normal', alt: 'A blue coffee cup with open eyes and a smile', dose: 18, grind: 12, wip: false, yield: 36, tmin: 30, tmax: 30, temp: 94, chapita: true },
     { id: 'decaf-latera', name: 'Decaf Latera', kind: 'Decaf', img: 'decaf-latera', alt: 'A blue coffee cup with closed eyes and a smile', dose: 18, grind: 11.5, wip: false, yield: 35, tmin: 30, tmax: 35, temp: 92, chapita: false },
     { id: 'decaf-lavazza', name: 'Decaf Lavazza', kind: 'Decaf', img: 'decaf-lavazza', alt: 'A yellow coffee cup with closed eyes and a smile', dose: 18, grind: 11, wip: false, yield: 36, tmin: 30, tmax: 35, temp: 94, chapita: false }
   ];
