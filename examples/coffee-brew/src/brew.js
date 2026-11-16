@@ -85,25 +85,28 @@
         '<span class="line">' + c.dose + ' g · grind ' + c.grind + ' · ' + c.yield + ' ml</span></span></button>';
     });
     h += '</div><div class="settings" id="settings"></div>' +
-      '<div class="actions"><button type="button" class="cg-btn cg-btn--primary big" id="start">Start brewing ' + icon('arrow_forward') + '</button></div></section>';
+      '<div class="actions start-bar"><button type="button" class="cg-btn cg-btn--primary big" id="start"><span id="start-label">Pick a coffee</span> ' + icon('arrow_forward') + '</button></div></section>';
     app.innerHTML = h;
     updatePick();
     app.querySelectorAll('.coffee').forEach(function (b) {
       b.addEventListener('click', function () {
         state.coffee = b.getAttribute('data-id');
         app.querySelectorAll('.coffee').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
-        updatePick();
+        updatePick(true);
         say(byId(state.coffee).name + ' selected.');
       });
     });
     document.getElementById('start').addEventListener('click', function () { if (state.coffee) { state.screen = 'steps'; state.step = 0; render(true); } });
   }
-  function updatePick() {
+  function updatePick(picked) {
     var box = document.getElementById('settings'), btn = document.getElementById('start');
     var c = state.coffee && byId(state.coffee);
     btn.disabled = !c;
+    document.getElementById('start-label').textContent = c ? 'Start ' + c.name : 'Pick a coffee';
     if (!c) { box.innerHTML = '<p class="hint">No coffee picked yet. Choose one above to see its dose, grind, yield, time and temperature.</p>'; return; }
     box.innerHTML = '<h3>' + c.name + ': settings</h3>' + settingsTable(c) + '<p class="src">Source: your whiteboard, entered on 15 November 2026.</p>';
+    /* bring the settings into view after picking, unless the device asks for less motion; the Start bar is always visible anyway */
+    if (picked && !(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) { var r = box.getBoundingClientRect(); if (r.top > window.innerHeight * 0.6) box.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
   }
 
   /* ---------- Screen 2: step by step ---------- */

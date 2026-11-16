@@ -1,5 +1,7 @@
 """Copies the example pages into docs/examples/ so GitHub Pages can show them. Run after the Storybook build."""
-import os, shutil
+import os, sys, shutil
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'examples'))
+import build_common as bc
 root = os.path.dirname(os.path.abspath(__file__))
 pages = [('vegetable-explorer', 'Vegetable Explorer', 'Browse vegetables by price and nutrients.'),
          ('vegetable-face-off', 'Vegetable Face-off', 'A quick game: which vegetable wins?'),
@@ -8,7 +10,8 @@ out = os.path.join(root, 'docs', 'examples')
 shutil.rmtree(out, ignore_errors=True)
 for slug, _, _ in pages:
     os.makedirs(os.path.join(out, slug))
-    shutil.copy(os.path.join(root, 'examples', slug, 'index.html'), os.path.join(out, slug, 'index.html'))
+    html = open(os.path.join(root, 'examples', slug, 'index.html'), encoding='utf-8').read()
+    open(os.path.join(out, slug, 'index.html'), 'w', encoding='utf-8').write(bc.standalone(html))
 items = ''.join('<li><a href="%s/">%s</a> <span>%s</span></li>' % (s, t, d) for s, t, d in pages)
 open(os.path.join(out, 'index.html'), 'w').write('''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Cool Graphs examples</title>
 <style>body{font:18px/1.5 system-ui,sans-serif;background:#fff4ea;color:#5a3d22;max-width:640px;margin:0 auto;padding:32px 16px}

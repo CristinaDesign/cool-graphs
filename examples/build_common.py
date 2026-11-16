@@ -29,6 +29,14 @@ def js_esc(t):
 def html_esc(t):
     return ''.join(c if ord(c) < 128 else '&#%d;' % ord(c) for c in t)
 
+def standalone(html, lang='en'):
+    """Wraps a built page (which is a fragment for the Claude artifact viewer) in a full HTML document with the viewport
+    meta, so it also works as a normal web page on a phone (GitHub Pages). Without it, phones show the desktop layout."""
+    if html.lstrip().lower().startswith('<!doctype'):
+        return html
+    return ('<!doctype html>\n<html lang="%s"><head><meta charset="utf-8">'
+            '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n' % lang) + html + '\n</html>\n'
+
 def page(title, css, body, js, icon_base=None):
     icon_base = icon_base or os.environ.get('ICON_BASE', '../shared/icons/')
     js = js.replace("'icons/' +", "'" + icon_base + "' +").replace('src="icons/', 'src="' + icon_base)

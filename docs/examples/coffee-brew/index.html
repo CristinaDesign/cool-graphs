@@ -1,3 +1,5 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Coffee Brew Guide</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya:wght@400;700&family=Alegreya+Sans:wght@400;500;700&display=swap">
@@ -361,6 +363,10 @@ h1 { font-weight: 700; font-size: var(--cg-text-display); line-height: 1.05; let
 #h-pick { font-size: var(--cg-text-display); line-height: 1.05; letter-spacing: -0.02em; }
 .head p { margin-top: 6px; color: var(--cg-color-ink-2); max-width: 60ch; }
 .actions { display: flex; gap: var(--cg-space-3); flex-wrap: wrap; align-items: center; }
+/* Sticky Start bar: stays at the bottom of the screen while the pick screen is showing, so Start is never scrolled out of reach */
+.start-bar { position: sticky; bottom: 0; z-index: 5; background: var(--cg-color-bg); border-top: var(--cg-border-width) solid var(--cg-color-line); margin-inline: calc(-1 * max(16px, env(safe-area-inset-left))); padding: var(--cg-space-3) max(16px, env(safe-area-inset-left)) max(var(--cg-space-3), env(safe-area-inset-bottom)); }
+.start-bar .cg-btn { width: 100%; justify-content: center; }
+@media (min-width: 721px) { .start-bar .cg-btn { width: auto; } }
 .cg-btn.big { min-height: 48px; padding-inline: var(--cg-space-5); font-size: var(--cg-text-lg); display: inline-flex; align-items: center; gap: var(--cg-space-2); }
 .cg-btn .cg-icon { margin-inline: calc(var(--cg-space-1) * -1); }
 .cg-btn.sm { min-height: var(--cg-target-min); padding: var(--cg-space-1) var(--cg-space-3); display: inline-flex; align-items: center; gap: var(--cg-space-2); }
@@ -543,8 +549,8 @@ h1 { font-weight: 700; font-size: var(--cg-text-display); line-height: 1.05; let
     <ul>
       <li><b>Source and date:</b> the settings are copied from your whiteboard photos, entered on 15 November 2026. They are your own settings, not measured or checked against the machine.</li>
       <li><b>Units:</b> dose in grams (g) of ground coffee; grind setting is the number on your grinder; yield in millilitres (ml) of coffee in the cup; shot time in seconds (s) from the start of the shot; temperature in degrees Celsius (&#176;C) of the water, as set on the machine.</li>
-      <li><b>Work in progress:</b> grind 12 for Latera Normal is marked "work in progress" on your board. Its time is written as a single value (30 s), so the target is exactly 30 s, not a range.</li>
-      <li><b>Left out on purpose:</b> a number "60" that appears on two whiteboard photos, because its meaning is not known, and the preinfusion time, as you asked.</li>
+      <li><b>Shot time:</b> Latera Normal is written as a single value (30 s), so the target is exactly 30 s, not a range.</li>
+      <li><b>Left out on purpose:</b> the preinfusion time, as you asked.</li>
       <li><b>Steps:</b> the order of the steps is a general routine written as a starting point. Only the chapita (a small disc placed on the coffee, for Latera Normal) and the settings come from your board.</li>
       <li><b>Brands:</b> Latera and Lavazza are coffee brands. Illustrations are your own. Page built with the Cool Graphs design system, draft 7.</li>
     </ul>
@@ -639,25 +645,28 @@ h1 { font-weight: 700; font-size: var(--cg-text-display); line-height: 1.05; let
         '<span class="line">' + c.dose + ' g \u00b7 grind ' + c.grind + ' \u00b7 ' + c.yield + ' ml</span></span></button>';
     });
     h += '</div><div class="settings" id="settings"></div>' +
-      '<div class="actions"><button type="button" class="cg-btn cg-btn--primary big" id="start">Start brewing ' + icon('arrow_forward') + '</button></div></section>';
+      '<div class="actions start-bar"><button type="button" class="cg-btn cg-btn--primary big" id="start"><span id="start-label">Pick a coffee</span> ' + icon('arrow_forward') + '</button></div></section>';
     app.innerHTML = h;
     updatePick();
     app.querySelectorAll('.coffee').forEach(function (b) {
       b.addEventListener('click', function () {
         state.coffee = b.getAttribute('data-id');
         app.querySelectorAll('.coffee').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
-        updatePick();
+        updatePick(true);
         say(byId(state.coffee).name + ' selected.');
       });
     });
     document.getElementById('start').addEventListener('click', function () { if (state.coffee) { state.screen = 'steps'; state.step = 0; render(true); } });
   }
-  function updatePick() {
+  function updatePick(picked) {
     var box = document.getElementById('settings'), btn = document.getElementById('start');
     var c = state.coffee && byId(state.coffee);
     btn.disabled = !c;
+    document.getElementById('start-label').textContent = c ? 'Start ' + c.name : 'Pick a coffee';
     if (!c) { box.innerHTML = '<p class="hint">No coffee picked yet. Choose one above to see its dose, grind, yield, time and temperature.</p>'; return; }
     box.innerHTML = '<h3>' + c.name + ': settings</h3>' + settingsTable(c) + '<p class="src">Source: your whiteboard, entered on 15 November 2026.</p>';
+    /* bring the settings into view after picking, unless the device asks for less motion; the Start bar is always visible anyway */
+    if (picked && !(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) { var r = box.getBoundingClientRect(); if (r.top > window.innerHeight * 0.6) box.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
   }
 
   /* ---------- Screen 2: step by step ---------- */
@@ -778,3 +787,5 @@ h1 { font-weight: 700; font-size: var(--cg-text-display); line-height: 1.05; let
 })();
 
 </script>
+
+</html>
