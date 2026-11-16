@@ -2,6 +2,10 @@
 
 What changed in the design system, newest first. Dates are 2026.
 
+## 16 November
+- New type size token `--cg-text-display` (56 px, 40 px on phones) for one big headline per page. Used for the Coffee Brew Guide title and its first question.
+- Coffee icon removed from the Coffee Brew Guide title.
+
 ## 15 November
 - Repository renamed from `vegetablecharts` to `cool-graphs`.
 - Latera Normal grind setting 12 confirmed (no longer marked work in progress) in the Coffee Brew Guide example.

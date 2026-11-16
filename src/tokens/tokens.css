@@ -16,6 +16,7 @@
   --cg-text-lg: 18px;
   --cg-text-xl: 20px;
   --cg-text-title: 24px;
+  --cg-text-display: 56px; /* one big headline per page (landing or intro); 40px on phones */
 
   /* Shape, spacing, motion */
   --cg-radius-sm: 8px;
@@ -43,3 +44,7 @@ body {
   transition: background-color var(--cg-duration), color var(--cg-duration);
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+@media (max-width: 480px) {
+  :root { --cg-text-display: 40px; }
+}

@@ -3,7 +3,7 @@
 body { margin: 0; }
 h1, h2, h3, p, ul, ol, dl, dd { margin: 0; }
 .wrap { max-width: 720px; margin: 0 auto; padding: var(--cg-space-5) max(16px, env(safe-area-inset-right)) var(--cg-space-6) max(16px, env(safe-area-inset-left)); display: grid; gap: var(--cg-space-5); }
-h1 { font-weight: 700; font-size: 32px; line-height: 1.15; }
+h1 { font-weight: 700; font-size: var(--cg-text-display); line-height: 1.05; letter-spacing: -0.02em; text-wrap: balance; }
 .top { display: flex; justify-content: space-between; align-items: flex-start; gap: var(--cg-space-4); flex-wrap: wrap; }
 .top > div { flex: 1 1 360px; min-width: 0; display: grid; gap: var(--cg-space-3); }
 .lede { color: var(--cg-color-ink-2); font-size: var(--cg-text-md); max-width: 62ch; }
@@ -13,6 +13,7 @@ h1 { font-weight: 700; font-size: 32px; line-height: 1.15; }
 .screen { display: grid; gap: var(--cg-space-4); }
 .screen h2 { font-weight: 700; font-size: 26px; line-height: 1.2; text-wrap: balance; }
 .screen h2:focus { outline: none; }
+#h-pick { font-size: var(--cg-text-display); line-height: 1.05; letter-spacing: -0.02em; }
 .head p { margin-top: 6px; color: var(--cg-color-ink-2); max-width: 60ch; }
 .actions { display: flex; gap: var(--cg-space-3); flex-wrap: wrap; align-items: center; }
 .cg-btn.big { min-height: 48px; padding-inline: var(--cg-space-5); font-size: var(--cg-text-lg); display: inline-flex; align-items: center; gap: var(--cg-space-2); }
@@ -118,7 +119,7 @@ h1 { font-weight: 700; font-size: 32px; line-height: 1.15; }
   .step { grid-template-columns: 1fr; padding: var(--cg-space-4); }
   .step .ico { width: 56px; height: 56px; font-size: 36px; }
 }
-@media (max-width: 400px) { h1 { font-size: 28px; } .screen h2 { font-size: 22px; } .celebrate h2 { font-size: 28px; } .bigval .n { font-size: 38px; } }
+@media (max-width: 400px) { .screen h2 { font-size: 22px; } #h-pick { font-size: var(--cg-text-display); } .celebrate h2 { font-size: 28px; } .bigval .n { font-size: 38px; } }
 @media (min-width: 641px) { .coffee .txt { display: contents; } }
 
 /* Motion: only when the person has not asked for less */

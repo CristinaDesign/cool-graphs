@@ -9,7 +9,7 @@ const colors: [string, string][] = [
   ['--cg-color-error-bg', 'Error tint'], ['--cg-color-warning-bg', 'Warning tint'], ['--cg-color-success-bg', 'Success tint'],
 ]
 const spaces = ['--cg-space-1', '--cg-space-2', '--cg-space-3', '--cg-space-4', '--cg-space-5', '--cg-space-6']
-const texts: [string, string][] = [['--cg-text-sm', '14'], ['--cg-text-md', '16'], ['--cg-text-lg', '18'], ['--cg-text-xl', '20'], ['--cg-text-title', '24']]
+const texts: [string, string][] = [['--cg-text-sm', '14'], ['--cg-text-md', '16'], ['--cg-text-lg', '18'], ['--cg-text-xl', '20'], ['--cg-text-title', '24'], ['--cg-text-display', '56']]
 
 function Tokens() {
   return (

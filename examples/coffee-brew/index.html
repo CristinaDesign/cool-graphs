@@ -208,6 +208,7 @@
   --cg-text-lg: 18px;
   --cg-text-xl: 20px;
   --cg-text-title: 24px;
+  --cg-text-display: 56px; /* one big headline per page (landing or intro); 40px on phones */
 
   /* Shape, spacing, motion */
   --cg-radius-sm: 8px;
@@ -235,6 +236,10 @@ body {
   transition: background-color var(--cg-duration), color var(--cg-duration);
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+@media (max-width: 480px) {
+  :root { --cg-text-display: 40px; }
+}
 
 .cg-switch { display: inline-flex; align-items: center; gap: 10px; background: none; border: 0; padding: var(--cg-space-1);
   cursor: pointer; font: 500 var(--cg-text-sm) var(--cg-font-display); color: var(--cg-color-ink-2); }
@@ -343,7 +348,7 @@ body {
 body { margin: 0; }
 h1, h2, h3, p, ul, ol, dl, dd { margin: 0; }
 .wrap { max-width: 720px; margin: 0 auto; padding: var(--cg-space-5) max(16px, env(safe-area-inset-right)) var(--cg-space-6) max(16px, env(safe-area-inset-left)); display: grid; gap: var(--cg-space-5); }
-h1 { font-weight: 700; font-size: 32px; line-height: 1.15; }
+h1 { font-weight: 700; font-size: var(--cg-text-display); line-height: 1.05; letter-spacing: -0.02em; text-wrap: balance; }
 .top { display: flex; justify-content: space-between; align-items: flex-start; gap: var(--cg-space-4); flex-wrap: wrap; }
 .top > div { flex: 1 1 360px; min-width: 0; display: grid; gap: var(--cg-space-3); }
 .lede { color: var(--cg-color-ink-2); font-size: var(--cg-text-md); max-width: 62ch; }
@@ -353,6 +358,7 @@ h1 { font-weight: 700; font-size: 32px; line-height: 1.15; }
 .screen { display: grid; gap: var(--cg-space-4); }
 .screen h2 { font-weight: 700; font-size: 26px; line-height: 1.2; text-wrap: balance; }
 .screen h2:focus { outline: none; }
+#h-pick { font-size: var(--cg-text-display); line-height: 1.05; letter-spacing: -0.02em; }
 .head p { margin-top: 6px; color: var(--cg-color-ink-2); max-width: 60ch; }
 .actions { display: flex; gap: var(--cg-space-3); flex-wrap: wrap; align-items: center; }
 .cg-btn.big { min-height: 48px; padding-inline: var(--cg-space-5); font-size: var(--cg-text-lg); display: inline-flex; align-items: center; gap: var(--cg-space-2); }
@@ -458,7 +464,7 @@ h1 { font-weight: 700; font-size: 32px; line-height: 1.15; }
   .step { grid-template-columns: 1fr; padding: var(--cg-space-4); }
   .step .ico { width: 56px; height: 56px; font-size: 36px; }
 }
-@media (max-width: 400px) { h1 { font-size: 28px; } .screen h2 { font-size: 22px; } .celebrate h2 { font-size: 28px; } .bigval .n { font-size: 38px; } }
+@media (max-width: 400px) { .screen h2 { font-size: 22px; } #h-pick { font-size: var(--cg-text-display); } .celebrate h2 { font-size: 28px; } .bigval .n { font-size: 38px; } }
 @media (min-width: 641px) { .coffee .txt { display: contents; } }
 
 /* Motion: only when the person has not asked for less */
@@ -507,7 +513,7 @@ h1 { font-weight: 700; font-size: 32px; line-height: 1.15; }
 <div class="wrap">
   <header class="top">
     <div>
-      <h1>Coffee brew guide &#9749;</h1>
+      <h1>Coffee brew guide</h1>
       <p class="lede">Pick your coffee, then follow the steps.</p>
     </div>
     <button class="cg-switch" id="theme" type="button" role="switch" aria-checked="false">

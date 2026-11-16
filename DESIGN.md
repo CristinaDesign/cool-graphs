@@ -29,7 +29,7 @@ All values are CSS variables starting with `--cg-`, in `src/tokens/`. Colour has
 | **2. Semantic** | `semantic.css` | What a colour is *for*. Light and dark point the same role at different primitives. | `--cg-color-ink`, `--cg-color-error` |
 | **3. Component** | `component.css` | A colour for one component. Points at a semantic role, so it follows the theme automatically. | `--cg-table-header-bg`, `--cg-banner-error-border` |
 
-Non-colour tokens (type, spacing, shape, motion) are in `tokens.css`.
+Non-colour tokens (type, spacing, shape, motion) are in `tokens.css`. Type sizes: `text-sm` 14, `text-md` 16 (body), `text-lg` 18, `text-xl` 20, `text-title` 24, and `text-display` 56 px (40 px on phones). Use `text-display` for one big headline per page, such as a landing page or the main question of a short flow. Never more than one per screen, and it is still text, so it must keep 4.5:1 contrast.
 
 **Colour rules**
 - **Components use component or semantic colours only.** Never a primitive directly, and never a raw hex.
