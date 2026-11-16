@@ -3,6 +3,7 @@
 What changed in the design system, newest first. Dates are 2026.
 
 ## 16 November
+- The three example pages are now published with the Storybook on GitHub Pages, at `/examples/`. `npm run build-docs` copies them in.
 - New type size token `--cg-text-display` (56 px, 40 px on phones) for one big headline per page. Used for the Coffee Brew Guide title and its first question.
 - Coffee icon removed from the Coffee Brew Guide title.
 

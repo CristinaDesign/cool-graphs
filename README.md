@@ -25,3 +25,8 @@ When you change a token or component, update `DESIGN.md` if a rule changes, add 
 ## Icons
 
 Icons are from [Material Design Icons](https://github.com/marella/material-design-icons) (outlined style), licensed under Apache 2.0. The 20 icons in use are in `src/components/Icon/icons.ts`.
+
+
+## Viewing the pages online
+
+With GitHub Pages set to branch `main`, folder `/docs`, the design system (Storybook) is at the Pages address and the example pages are at `/examples/` (Vegetable Explorer, Vegetable Face-off, Coffee Brew Guide). Run `npm run build-docs` after changing a component or an example.
