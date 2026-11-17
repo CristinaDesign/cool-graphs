@@ -2,6 +2,9 @@
 
 What changed in the design system, newest first. Dates are 2026.
 
+## 17 November
+- Fixed vegetable illustrations showing as empty circles on GitHub Pages: `publish_examples.py` now copies the icons folder next to the example pages.
+
 ## 16 November
 - Coffee Brew Guide: the Start brewing button now stays fixed at the bottom of the screen on the pick screen and names the chosen coffee ("Start Latera Normal"). Notes updated (grind 12 confirmed, whiteboard "60" removed).
 - Example pages published on GitHub Pages now include the viewport setting, so phones show the mobile layout instead of the desktop one. Added by `publish_examples.py`.

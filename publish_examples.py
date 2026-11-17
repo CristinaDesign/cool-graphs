@@ -12,6 +12,7 @@ for slug, _, _ in pages:
     os.makedirs(os.path.join(out, slug))
     html = open(os.path.join(root, 'examples', slug, 'index.html'), encoding='utf-8').read()
     open(os.path.join(out, slug, 'index.html'), 'w', encoding='utf-8').write(bc.standalone(html))
+shutil.copytree(os.path.join(root, 'examples', 'shared', 'icons'), os.path.join(out, 'shared', 'icons'))  # vegetable illustrations the pages load from ../shared/icons/
 items = ''.join('<li><a href="%s/">%s</a> <span>%s</span></li>' % (s, t, d) for s, t, d in pages)
 open(os.path.join(out, 'index.html'), 'w').write('''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Cool Graphs examples</title>
 <style>body{font:18px/1.5 system-ui,sans-serif;background:#fff4ea;color:#5a3d22;max-width:640px;margin:0 auto;padding:32px 16px}
