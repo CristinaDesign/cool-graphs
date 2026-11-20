@@ -24,6 +24,7 @@
   --cg-card-text: var(--cg-color-ink);
   --cg-card-border: var(--cg-color-ink);
   --cg-card-border-soft: var(--cg-color-border-soft);
+  --cg-card-border-unselected: var(--cg-color-control-off);
   --cg-card-border-selected: var(--cg-color-ink);
   --cg-card-bg-selected: var(--cg-color-panel);
   /* Switch */

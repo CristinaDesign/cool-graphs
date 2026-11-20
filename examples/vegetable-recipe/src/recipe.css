@@ -16,6 +16,7 @@ h1 { font-weight: 700; font-size: var(--cg-text-display); line-height: 1.02; let
 .cg-card.veg .pic { height: 64px; width: 100%; display: flex; align-items: center; justify-content: center; }
 .cg-card.veg img { max-height: 64px; max-width: 92%; object-fit: contain; }
 .cg-card.veg b { font-size: var(--cg-text-sm); line-height: 1.2; }
+.cg-card.veg::before, .cg-card.veg::after { display: none; }
 .cg-card.veg .num { position: absolute; top: 6px; right: 6px; width: 22px; height: 22px; border-radius: 50%; background: var(--cg-color-ink); color: var(--cg-color-bg); font: 700 13px/22px var(--cg-font-data); display: none; }
 .cg-card.veg[aria-pressed="true"] .num { display: block; }
 .cg-card.veg[aria-pressed="true"] { animation: pick .28s cubic-bezier(.2, .9, .3, 1.3); }

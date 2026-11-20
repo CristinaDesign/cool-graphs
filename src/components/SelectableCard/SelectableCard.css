@@ -1,8 +1,11 @@
 .cg-card { font: inherit; text-align: center; cursor: pointer; background: transparent; color: var(--cg-card-text);
-  border: var(--cg-border-width) solid var(--cg-card-border); border-radius: var(--cg-radius-sm); padding: var(--cg-space-3) 14px;
-  display: grid; gap: 6px; align-content: start; width: 100%; opacity: .42; transition: opacity .2s, background .2s; }
-.cg-card:hover { opacity: .75; }
-.cg-card[aria-pressed="true"] { background: var(--cg-card-bg-selected); border-color: var(--cg-card-border-selected); opacity: 1; }
+  border: var(--cg-border-width) solid var(--cg-card-border-unselected); border-radius: var(--cg-radius-sm); padding: var(--cg-space-3) 14px;
+  display: grid; gap: 6px; align-content: start; width: 100%; position: relative; transition: border-color .2s, background .2s, box-shadow .2s; }
+.cg-card:hover { border-color: var(--cg-card-border); }
+/* Selected = thicker border (2px + 2px inner ring, no layout shift), filled background and a check mark. Not carried by colour alone. */
+.cg-card[aria-pressed="true"] { background: var(--cg-card-bg-selected); border-color: var(--cg-card-border-selected); box-shadow: inset 0 0 0 2px var(--cg-card-border-selected); }
+.cg-card[aria-pressed="true"]::after { content: ""; position: absolute; top: 8px; right: 8px; width: 20px; height: 20px; border-radius: 50%; background: var(--cg-card-border-selected); }
+.cg-card[aria-pressed="true"]::before { content: ""; position: absolute; top: 13px; right: 15px; width: 5px; height: 9px; border: solid var(--cg-card-bg-selected); border-width: 0 2px 2px 0; transform: rotate(45deg); z-index: 1; }
 .cg-card:focus-visible { outline: var(--cg-focus-ring); outline-offset: 3px; }
 .cg-card b { font-size: var(--cg-text-md); letter-spacing: .25px; }
 .cg-card span { font-size: 13px; line-height: 20px; letter-spacing: .25px; }

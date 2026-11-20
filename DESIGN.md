@@ -82,7 +82,7 @@ The scatter chart itself is app code and not part of the design system yet.
 
 ## 5. States every interactive component must have
 
-Default, hover, keyboard focus (3px accent-green ring), selected or on, disabled (40% opacity, no pointer). Components that fade the unselected state (cards, segmented options) never go below readable contrast. **(?)** The faded states have not yet been measured against WCAG AA.
+Default, hover, keyboard focus (3px accent-green ring), selected or on, disabled (40% opacity, no pointer). Selectable cards are never faded: an unselected card is fully visible with a 3:1 outline (`--cg-card-border-unselected`, 3.31:1 in light). Selected is shown by a thicker dark border (2 px plus a 2 px inner ring), a filled background and a check mark, so it does not rely on colour alone. The accent green is not used here because it is reserved for focus rings and data marks. Segmented options still fade their unselected state. **(?)** Those faded states have not yet been measured against WCAG AA.
 
 ## 6. Information and introductions
 

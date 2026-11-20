@@ -66,7 +66,7 @@ Example: a page where clicking an illustration of a vegetable shows information 
 
 **Behaviour**
 - Each illustration is a real `<button>` with an accessible name (for example "Spinach"), at least 30 px, with the standard focus ring.
-- Selected state works like the **Selectable card**: the chosen item is fully visible and filled, the others are faded but still readable.
+- Selected state works like the **Selectable card**: the chosen item gets a thicker dark border, a filled background and a check mark, and the others stay fully visible with a normal outline (never faded).
 - Nothing depends on hover. Everything also works with touch and keyboard (arrow keys or Tab to move, Enter or Space to choose).
 - Also offer the same information as a list or **Table**, for people who cannot use the illustrations.
 

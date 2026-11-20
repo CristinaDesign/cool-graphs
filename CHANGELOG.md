@@ -3,6 +3,7 @@
 What changed in the design system, newest first. Dates are 2026.
 
 ## 20 November
+- **Selectable card:** unselected cards are no longer faded (they looked disabled). They now have full opacity and a 3:1 outline (new component token `--cg-card-border-unselected`). Selected cards get a thicker border, the filled background and a check mark. Updated in the component, the Vegetable Explorer, `DESIGN.md` and the skill. The Vegetable Recipe page keeps its own 1/2 number badge instead of the check.
 - New example page **Vegetable Recipe** (`examples/vegetable-recipe`): pick two of 27 vegetables, preview and download a one-page A4 recipe card as a PDF. Any pair works (702 ordered pairs tested to fit on one page). Uses only existing tokens, components (Selectable card, Button, Chip, Table, Score bar, Banner) and the Vegetable Chart illustrations. The card is always drawn in the light theme.
 - Added the `arrow_forward` icon to the shared example icons.
 
