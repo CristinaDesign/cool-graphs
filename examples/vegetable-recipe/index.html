@@ -1,0 +1,891 @@
+<title>Vegetable Recipe</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya:wght@400;700&family=Alegreya+Sans:wght@400;500;700&display=swap">
+<style>
+/* Primitive colours: the raw palette. Every colour that exists, with a number and no meaning attached.
+   Higher number = darker. Steps marked 'in use' are the colours the interface uses today. Steps marked
+   'spare' are interpolated so each ramp is complete; they have NOT been contrast-tested yet.
+   Components must never use these directly. Use semantic tokens (semantic.css). */
+:root {
+  /* brown */
+  --cg-brown-50: #FFF5ED;  /* in use */
+  --cg-brown-100: #FAE5D5;  /* in use */
+  --cg-brown-150: #F2E4D6;  /* in use */
+  --cg-brown-200: #F1DFD1;  /* in use */
+  --cg-brown-300: #D8B898;  /* in use */
+  --cg-brown-400: #CDAE92;  /* in use */
+  --cg-brown-500: #A88A70;  /* in use */
+  --cg-brown-550: #9C8370;  /* in use */
+  --cg-brown-600: #6A5646;  /* in use */
+  --cg-brown-650: #724318;  /* in use */
+  --cg-brown-700: #5A3C21;  /* in use */
+  --cg-brown-750: #4A392C;  /* in use */
+  --cg-brown-800: #3A2E26;  /* in use */
+  --cg-brown-850: #2B221C;  /* in use */
+  --cg-brown-900: #1C1612;  /* in use */
+  /* lime */
+  --cg-lime-50: #F2FFE3;  /* spare */
+  --cg-lime-100: #C3FFA0;  /* spare */
+  --cg-lime-200: #8CFF45;  /* in use */
+  --cg-lime-300: #68D831;  /* spare */
+  --cg-lime-400: #43B31B;  /* spare */
+  --cg-lime-500: #168F00;  /* in use */
+  --cg-lime-600: #147700;  /* spare */
+  --cg-lime-700: #115F00;  /* spare */
+  --cg-lime-800: #0E4800;  /* spare */
+  --cg-lime-900: #0A3300;  /* spare */
+  /* green */
+  --cg-green-50: #DEF5E4;  /* in use */
+  --cg-green-100: #B6E4C3;  /* spare */
+  --cg-green-200: #8DD3A3;  /* spare */
+  --cg-green-300: #5FC283;  /* in use */
+  --cg-green-400: #3EA968;  /* spare */
+  --cg-green-500: #11914D;  /* in use */
+  --cg-green-600: #007527;  /* in use */
+  --cg-green-700: #165D28;  /* spare */
+  --cg-green-800: #1B4526;  /* spare */
+  --cg-green-900: #1B2F22;  /* in use */
+  /* red */
+  --cg-red-50: #FCE4E0;  /* in use */
+  --cg-red-100: #FFC7C0;  /* spare */
+  --cg-red-200: #FFA9A0;  /* spare */
+  --cg-red-300: #FF8A80;  /* in use */
+  --cg-red-400: #FD6051;  /* spare */
+  --cg-red-500: #F91C0C;  /* in use */
+  --cg-red-600: #C90D00;  /* in use */
+  --cg-red-700: #981F15;  /* spare */
+  --cg-red-800: #69221B;  /* spare */
+  --cg-red-900: #3D1E1B;  /* in use */
+  /* orange */
+  --cg-orange-50: #FFEBD3;  /* in use */
+  --cg-orange-100: #FFD3AA;  /* spare */
+  --cg-orange-200: #FFBB7F;  /* spare */
+  --cg-orange-300: #FFA24D;  /* in use */
+  --cg-orange-400: #E6802F;  /* spare */
+  --cg-orange-500: #CC5E04;  /* in use */
+  --cg-orange-600: #A34900;  /* in use */
+  --cg-orange-700: #7E3E0D;  /* spare */
+  --cg-orange-800: #5B3311;  /* spare */
+  --cg-orange-900: #3A2711;  /* in use */
+  --cg-white: #FFFFFF;
+  --cg-black: #000000;
+}
+
+/* Semantic colours: what a colour is FOR. Each one points at a primitive (primitives.css).
+   Light and dark map the same roles to different primitives, so dark mode is a re-mapping, not new colours.
+   Switch theme with <html data-theme="light|dark">; without it, follows the OS setting. */
+:root {
+  --cg-color-bg: var(--cg-brown-50);
+  --cg-color-panel: var(--cg-brown-200);
+  --cg-color-line: var(--cg-brown-100);
+  --cg-color-ink: var(--cg-brown-700);
+  --cg-color-ink-2: var(--cg-brown-650);
+  --cg-color-muted: var(--cg-brown-500);
+  --cg-color-control-off: var(--cg-brown-550);
+  --cg-color-accent: var(--cg-lime-500);
+  --cg-color-on-ink: var(--cg-brown-50);
+  --cg-color-border-soft: var(--cg-brown-400);
+  --cg-color-header: var(--cg-brown-700);
+  --cg-color-on-header: var(--cg-brown-50);
+  --cg-color-error: var(--cg-red-500);
+  --cg-color-error-text: var(--cg-red-600);
+  --cg-color-error-bg: var(--cg-red-50);
+  --cg-color-warning: var(--cg-orange-500);
+  --cg-color-warning-text: var(--cg-orange-600);
+  --cg-color-warning-bg: var(--cg-orange-50);
+  --cg-color-success: var(--cg-green-500);
+  --cg-color-success-text: var(--cg-green-600);
+  --cg-color-success-bg: var(--cg-green-50);
+  --cg-chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%235A3C21' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");  /* dropdown arrow: a hex inside an image cannot use var(), so it repeats the ink colour */
+  --cg-shadow-color: color-mix(in srgb, var(--cg-brown-700) 15%, transparent);
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --cg-color-bg: var(--cg-brown-900);
+    --cg-color-panel: var(--cg-brown-850);
+    --cg-color-line: var(--cg-brown-800);
+    --cg-color-ink: var(--cg-brown-150);
+    --cg-color-ink-2: var(--cg-brown-300);
+    --cg-color-muted: var(--cg-brown-550);
+    --cg-color-control-off: var(--cg-brown-550);
+    --cg-color-accent: var(--cg-lime-200);
+    --cg-color-on-ink: var(--cg-brown-900);
+    --cg-color-header: var(--cg-brown-750);
+    --cg-color-on-header: var(--cg-brown-150);
+    --cg-color-border-soft: var(--cg-brown-600);
+    --cg-color-error: var(--cg-red-300);
+    --cg-color-error-text: var(--cg-red-300);
+    --cg-color-error-bg: var(--cg-red-900);
+    --cg-color-warning: var(--cg-orange-300);
+    --cg-color-warning-text: var(--cg-orange-300);
+    --cg-color-warning-bg: var(--cg-orange-900);
+    --cg-color-success: var(--cg-green-300);
+    --cg-color-success-text: var(--cg-green-300);
+    --cg-color-success-bg: var(--cg-green-900);
+    --cg-chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%23F2E4D6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");  /* dropdown arrow: a hex inside an image cannot use var(), so it repeats the ink colour */
+    --cg-shadow-color: color-mix(in srgb, var(--cg-black) 45%, transparent);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --cg-color-bg: var(--cg-brown-900);
+  --cg-color-panel: var(--cg-brown-850);
+  --cg-color-line: var(--cg-brown-800);
+  --cg-color-ink: var(--cg-brown-150);
+  --cg-color-ink-2: var(--cg-brown-300);
+  --cg-color-muted: var(--cg-brown-550);
+  --cg-color-control-off: var(--cg-brown-550);
+  --cg-color-accent: var(--cg-lime-200);
+  --cg-color-on-ink: var(--cg-brown-900);
+  --cg-color-header: var(--cg-brown-750);
+  --cg-color-on-header: var(--cg-brown-150);
+  --cg-color-border-soft: var(--cg-brown-600);
+  --cg-color-error: var(--cg-red-300);
+  --cg-color-error-text: var(--cg-red-300);
+  --cg-color-error-bg: var(--cg-red-900);
+  --cg-color-warning: var(--cg-orange-300);
+  --cg-color-warning-text: var(--cg-orange-300);
+  --cg-color-warning-bg: var(--cg-orange-900);
+  --cg-color-success: var(--cg-green-300);
+  --cg-color-success-text: var(--cg-green-300);
+  --cg-color-success-bg: var(--cg-green-900);
+  --cg-chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%23F2E4D6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");  /* dropdown arrow: a hex inside an image cannot use var(), so it repeats the ink colour */
+  --cg-shadow-color: color-mix(in srgb, var(--cg-black) 45%, transparent);
+  color-scheme: dark;
+}
+
+/* Component colours: colours for one component, each pointing at a semantic token.
+   They are defined once and follow the theme automatically. Add one only when a component needs a colour
+   that must change independently of the rest. Format: --cg-<component>-<part>. */
+:root {
+  /* Table */
+  --cg-table-header-bg: var(--cg-color-header);
+  --cg-table-header-text: var(--cg-color-on-header);
+  --cg-table-row-border: var(--cg-color-panel);
+  --cg-table-row-hover-bg: var(--cg-color-panel);
+  /* Banner */
+  --cg-banner-info-border: var(--cg-color-ink);
+  --cg-banner-info-bg: var(--cg-color-panel);
+  --cg-banner-info-text: var(--cg-color-ink);
+  --cg-banner-error-border: var(--cg-color-error);
+  --cg-banner-error-bg: var(--cg-color-error-bg);
+  --cg-banner-error-text: var(--cg-color-error-text);
+  --cg-banner-warning-border: var(--cg-color-warning);
+  --cg-banner-warning-bg: var(--cg-color-warning-bg);
+  --cg-banner-warning-text: var(--cg-color-warning-text);
+  --cg-banner-success-border: var(--cg-color-success);
+  --cg-banner-success-bg: var(--cg-color-success-bg);
+  --cg-banner-success-text: var(--cg-color-success-text);
+  /* Card */
+  --cg-card-text: var(--cg-color-ink);
+  --cg-card-border: var(--cg-color-ink);
+  --cg-card-border-soft: var(--cg-color-border-soft);
+  --cg-card-border-selected: var(--cg-color-ink);
+  --cg-card-bg-selected: var(--cg-color-panel);
+  /* Switch */
+  --cg-switch-off-border: var(--cg-color-control-off);
+  --cg-switch-off-knob: var(--cg-color-control-off);
+  --cg-switch-on-bg: var(--cg-color-ink);
+  --cg-switch-on-knob: var(--cg-color-on-ink);
+  /* Button */
+  --cg-button-primary-bg: var(--cg-color-ink);
+  --cg-button-primary-text: var(--cg-color-on-ink);
+  --cg-button-secondary-border: var(--cg-color-ink);
+  --cg-button-secondary-text: var(--cg-color-ink);
+  --cg-button-secondary-hover-bg: var(--cg-color-panel);
+  --cg-button-link-text: var(--cg-color-ink-2);
+  --cg-button-link-hover-text: var(--cg-color-ink);
+}
+
+:root {
+  /* Typography */
+  --cg-font-display: "Alegreya Sans", "Trebuchet MS", system-ui, sans-serif;
+  --cg-font-data: "Alegreya", Georgia, "Times New Roman", serif;
+  --cg-text-sm: 14px;
+  --cg-text-md: 16px;
+  --cg-text-lg: 18px;
+  --cg-text-xl: 20px;
+  --cg-text-title: 24px;
+  --cg-text-display: 56px; /* one big headline per page (landing or intro); 40px on phones */
+
+  /* Shape, spacing, motion */
+  --cg-radius-sm: 8px;
+  --cg-radius-lg: 16px;
+  --cg-radius-pill: 999px;
+  --cg-border-width: 2px;
+  --cg-target-min: 30px;        /* minimum height/width of anything clickable */
+  --cg-icon-size: 24px;         /* default icon size */
+  --cg-space-1: 4px;
+  --cg-space-2: 8px;
+  --cg-space-3: 12px;
+  --cg-space-4: 16px;
+  --cg-space-5: 24px;
+  --cg-space-6: 40px;
+  --cg-shadow-raised: 0 6px 18px var(--cg-shadow-color);
+  --cg-focus-ring: 3px solid var(--cg-color-accent);
+  --cg-duration: .25s;
+  --cg-ease: cubic-bezier(.2, .7, .2, 1);
+}
+
+body {
+  background: var(--cg-color-bg);
+  color: var(--cg-color-ink);
+  font: var(--cg-text-md)/1.5 var(--cg-font-display);
+  transition: background-color var(--cg-duration), color var(--cg-duration);
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+@media (max-width: 480px) {
+  :root { --cg-text-display: 40px; }
+}
+
+.cg-switch { display: inline-flex; align-items: center; gap: 10px; background: none; border: 0; padding: var(--cg-space-1);
+  cursor: pointer; font: 500 var(--cg-text-sm) var(--cg-font-display); color: var(--cg-color-ink-2); }
+.cg-switch__track { position: relative; width: 58px; height: 30px; border-radius: var(--cg-radius-pill);
+  background: transparent; border: var(--cg-border-width) solid var(--cg-switch-off-border);
+  transition: background-color var(--cg-duration), border-color var(--cg-duration); }
+.cg-switch__knob { position: absolute; top: 2px; left: 2px; width: 22px; height: 22px; border-radius: 50%;
+  background: var(--cg-switch-off-knob); color: var(--cg-color-bg); display: grid; place-items: center;
+  transition: transform var(--cg-duration) var(--cg-ease), background-color var(--cg-duration); }
+.cg-switch__knob svg { width: 14px; height: 14px; }
+.cg-switch[aria-checked="true"] .cg-switch__track { background: var(--cg-switch-on-bg); border-color: var(--cg-switch-on-bg); }
+.cg-switch[aria-checked="true"] .cg-switch__knob { transform: translateX(28px); background: var(--cg-switch-on-knob); color: var(--cg-switch-on-bg); }
+.cg-switch:focus-visible { outline: var(--cg-focus-ring); outline-offset: 3px; border-radius: var(--cg-radius-pill); }
+.cg-switch:disabled { opacity: .4; cursor: not-allowed; }
+.cg-seg { display: inline-flex; border: var(--cg-border-width) solid var(--cg-color-ink); border-radius: var(--cg-radius-pill); padding: 2px; }
+.cg-seg button { min-height: var(--cg-target-min); font: 500 var(--cg-text-sm) var(--cg-font-display); color: var(--cg-color-ink); background: none; border: 0;
+  border-radius: var(--cg-radius-pill); padding: var(--cg-space-1) var(--cg-space-4); cursor: pointer; opacity: .55; }
+.cg-seg button:hover { opacity: .85; }
+.cg-seg button[aria-checked="true"] { background: var(--cg-color-panel); opacity: 1; font-weight: 700; }
+.cg-seg button:focus-visible { outline: var(--cg-focus-ring); outline-offset: 2px; }
+.cg-btn { font: 700 var(--cg-text-md) var(--cg-font-display); letter-spacing: .25px; cursor: pointer;
+  border: var(--cg-border-width) solid var(--cg-button-secondary-border); border-radius: var(--cg-radius-sm);
+  padding: var(--cg-space-3) var(--cg-space-5); transition: background-color .2s, opacity .2s; }
+.cg-btn--primary { background: var(--cg-button-primary-bg); border-color: var(--cg-button-primary-bg); color: var(--cg-button-primary-text); }
+.cg-btn--primary:hover { opacity: .85; }
+.cg-btn--secondary { background: transparent; color: var(--cg-button-secondary-text); }
+.cg-btn--secondary:hover { background: var(--cg-button-secondary-hover-bg); }
+.cg-btn--link { background: none; border-color: transparent; color: var(--cg-button-link-text); font-weight: 500;
+  text-decoration: underline; text-underline-offset: 3px; padding-inline: var(--cg-space-2); }
+.cg-btn--link:hover { color: var(--cg-button-link-hover-text); }
+.cg-btn:focus-visible { outline: var(--cg-focus-ring); outline-offset: 3px; }
+.cg-btn:disabled { opacity: .4; cursor: not-allowed; }
+.cg-select { width: 100%; font: 700 var(--cg-text-md) var(--cg-font-display); letter-spacing: .25px; color: var(--cg-color-ink);
+  background-color: var(--cg-color-panel); border: var(--cg-border-width) solid var(--cg-color-ink); border-radius: var(--cg-radius-sm);
+  padding: var(--cg-space-3) 44px var(--cg-space-3) 14px; appearance: none; -webkit-appearance: none; cursor: pointer;
+  background-image: var(--cg-chevron); background-repeat: no-repeat; background-position: right 16px center; }
+.cg-select:focus-visible { outline: var(--cg-focus-ring); outline-offset: 3px; }
+.cg-select:disabled { opacity: .4; cursor: not-allowed; }
+.cg-card { font: inherit; text-align: center; cursor: pointer; background: transparent; color: var(--cg-card-text);
+  border: var(--cg-border-width) solid var(--cg-card-border); border-radius: var(--cg-radius-sm); padding: var(--cg-space-3) 14px;
+  display: grid; gap: 6px; align-content: start; width: 100%; opacity: .42; transition: opacity .2s, background .2s; }
+.cg-card:hover { opacity: .75; }
+.cg-card[aria-pressed="true"] { background: var(--cg-card-bg-selected); border-color: var(--cg-card-border-selected); opacity: 1; }
+.cg-card:focus-visible { outline: var(--cg-focus-ring); outline-offset: 3px; }
+.cg-card b { font-size: var(--cg-text-md); letter-spacing: .25px; }
+.cg-card span { font-size: 13px; line-height: 20px; letter-spacing: .25px; }
+.cg-disclosure { font-size: 15px; }
+.cg-disclosure summary { min-height: var(--cg-target-min); display: flex; align-items: center; cursor: pointer; color: var(--cg-color-ink-2); font-weight: 500; }
+.cg-disclosure summary:hover { color: var(--cg-color-ink); }
+.cg-disclosure summary:focus-visible { outline: var(--cg-focus-ring); outline-offset: 3px; border-radius: 4px; }
+.cg-disclosure__body { margin-top: var(--cg-space-3); }
+.cg-table { overflow-x: auto; }
+.cg-table table { border-collapse: separate; border-spacing: 0; width: 100%; font: var(--cg-text-sm) var(--cg-font-data); font-variant-numeric: tabular-nums; }
+.cg-table th, .cg-table td { padding: 6px 10px; text-align: right; border-bottom: 1px solid var(--cg-table-row-border); white-space: nowrap; }
+.cg-table th:first-child, .cg-table td:first-child { text-align: left; }
+/* Dark header band with light text. Rounded at the outer top corners. */
+.cg-table thead th { font: 700 13px var(--cg-font-display); letter-spacing: .25px; color: var(--cg-table-header-text); background: var(--cg-table-header-bg);
+  padding-block: var(--cg-space-3); border-bottom: 0; }
+.cg-table thead th:first-child { border-top-left-radius: var(--cg-radius-sm); }
+.cg-table thead th:last-child { border-top-right-radius: var(--cg-radius-sm); }
+.cg-table tbody tr:hover td { background: var(--cg-table-row-hover-bg); }
+.cg-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.cg-legend { display: inline-block; font-size: var(--cg-text-sm); color: var(--cg-color-ink-2); }
+.cg-legend__dot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; border: 1px solid var(--cg-color-ink);
+  vertical-align: -1px; margin-right: 6px; background: var(--cg-color-panel); }
+.cg-legend__dot--est { border: 1.2px dashed var(--cg-color-ink-2); outline: 1px solid var(--cg-color-ink); outline-offset: 2px; margin-left: 3px; margin-right: 9px; }
+.cg-score { display: grid; grid-template-columns: 170px minmax(0, 1fr) 44px; align-items: center; gap: 10px; }
+.cg-score__label { font-size: var(--cg-text-sm); }
+.cg-score__bar { height: 12px; border-radius: 0 4px 4px 0; background: var(--cg-color-accent); min-width: 2px; }
+.cg-score__value { font: 700 var(--cg-text-sm) var(--cg-font-data); text-align: right; font-variant-numeric: tabular-nums; }
+.cg-icon { display: inline-block; flex: none; vertical-align: middle; }
+.cg-banner { --accent: var(--cg-banner-info-border); --accent-text: var(--cg-banner-info-text); --fill: var(--cg-banner-info-bg);
+  display: flex; align-items: flex-start; gap: var(--cg-space-3); padding: var(--cg-space-3) var(--cg-space-4);
+  background: var(--fill); color: var(--cg-banner-info-text); border: var(--cg-border-width) solid var(--accent); border-radius: var(--cg-radius-sm);
+  font: var(--cg-text-md)/1.5 var(--cg-font-display); }
+.cg-banner--error   { --accent: var(--cg-banner-error-border);   --accent-text: var(--cg-banner-error-text);   --fill: var(--cg-banner-error-bg); }
+.cg-banner--warning { --accent: var(--cg-banner-warning-border); --accent-text: var(--cg-banner-warning-text); --fill: var(--cg-banner-warning-bg); }
+.cg-banner--success { --accent: var(--cg-banner-success-border); --accent-text: var(--cg-banner-success-text); --fill: var(--cg-banner-success-bg); }
+.cg-banner__icon { color: var(--accent); display: flex; align-items: center; min-height: var(--cg-target-min); }
+.cg-banner__body { flex: 1; min-width: 0; padding-block: 3px; display: grid; gap: 2px; }
+.cg-banner__title { color: var(--accent-text); font-weight: 700; }
+.cg-banner__close { flex: none; display: grid; place-items: center; width: var(--cg-target-min); height: var(--cg-target-min);
+  margin: 0 calc(var(--cg-space-1) * -1); background: none; border: 0; border-radius: var(--cg-radius-sm); color: var(--cg-color-ink); cursor: pointer; }
+.cg-banner__close:hover { background: color-mix(in srgb, var(--cg-color-ink) 12%, transparent); }
+.cg-banner__close:focus-visible { outline: var(--cg-focus-ring); outline-offset: 2px; }
+/* Chip: a small pill of text. Not clickable. Colours are semantic roles, so it follows the theme. */
+.cg-chip { display: inline-block; padding: 4px 12px; border-radius: 999px;
+  font-family: var(--cg-font-display); font-size: var(--cg-text-sm); line-height: 1.3; white-space: nowrap;
+  color: var(--cg-color-ink); background: var(--cg-color-bg); border: 1px solid var(--cg-color-border-soft); }
+.cg-chip b { font-family: var(--cg-font-data); font-size: 17px; font-weight: 700; }
+.cg-chip .cg-icon { width: 16px; height: 16px; margin-right: 6px; vertical-align: -3px; }
+/* Solid: a label that stands out, such as "Try this" or "New". */
+.cg-chip--solid { background: var(--cg-color-ink); color: var(--cg-color-on-ink); border-color: var(--cg-color-ink);
+  font-size: 12px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase; padding: 2px 10px; }
+/* Dashed: provisional or estimated, matching the dashed ring used on estimated chart points. */
+.cg-chip--dashed { background: transparent; border: 1px dashed var(--cg-color-ink); }
+
+/* Small helpers the example pages need on top of the design system. */
+.cg-switch__knob .moon, .cg-switch[aria-checked="true"] .cg-switch__knob .sun { display: none; }
+.cg-switch[aria-checked="true"] .cg-switch__knob .moon { display: block; }
+.select-wrap { width: min(320px, 100%); }
+.ranking .cg-score { grid-template-columns: minmax(70px, 150px) minmax(0, 1fr) 40px; }
+
+.sheet {
+  --cg-color-bg: var(--cg-brown-50);
+  --cg-color-panel: var(--cg-brown-200);
+  --cg-color-line: var(--cg-brown-100);
+  --cg-color-ink: var(--cg-brown-700);
+  --cg-color-ink-2: var(--cg-brown-650);
+  --cg-color-muted: var(--cg-brown-500);
+  --cg-color-control-off: var(--cg-brown-550);
+  --cg-color-accent: var(--cg-lime-500);
+  --cg-color-on-ink: var(--cg-brown-50);
+  --cg-color-border-soft: var(--cg-brown-400);
+  --cg-color-header: var(--cg-brown-700);
+  --cg-color-on-header: var(--cg-brown-50);
+  --cg-color-error: var(--cg-red-500);
+  --cg-color-error-text: var(--cg-red-600);
+  --cg-color-error-bg: var(--cg-red-50);
+  --cg-color-warning: var(--cg-orange-500);
+  --cg-color-warning-text: var(--cg-orange-600);
+  --cg-color-warning-bg: var(--cg-orange-50);
+  --cg-color-success: var(--cg-green-500);
+  --cg-color-success-text: var(--cg-green-600);
+  --cg-color-success-bg: var(--cg-green-50);
+  --cg-chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%235A3C21' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");  /* dropdown arrow: a hex inside an image cannot use var(), so it repeats the ink colour */
+  --cg-shadow-color: color-mix(in srgb, var(--cg-brown-700) 15%, transparent);
+  color-scheme: light;
+}
+.sheet {
+  /* Table */
+  --cg-table-header-bg: var(--cg-color-header);
+  --cg-table-header-text: var(--cg-color-on-header);
+  --cg-table-row-border: var(--cg-color-panel);
+  --cg-table-row-hover-bg: var(--cg-color-panel);
+  /* Banner */
+  --cg-banner-info-border: var(--cg-color-ink);
+  --cg-banner-info-bg: var(--cg-color-panel);
+  --cg-banner-info-text: var(--cg-color-ink);
+  --cg-banner-error-border: var(--cg-color-error);
+  --cg-banner-error-bg: var(--cg-color-error-bg);
+  --cg-banner-error-text: var(--cg-color-error-text);
+  --cg-banner-warning-border: var(--cg-color-warning);
+  --cg-banner-warning-bg: var(--cg-color-warning-bg);
+  --cg-banner-warning-text: var(--cg-color-warning-text);
+  --cg-banner-success-border: var(--cg-color-success);
+  --cg-banner-success-bg: var(--cg-color-success-bg);
+  --cg-banner-success-text: var(--cg-color-success-text);
+  /* Card */
+  --cg-card-text: var(--cg-color-ink);
+  --cg-card-border: var(--cg-color-ink);
+  --cg-card-border-soft: var(--cg-color-border-soft);
+  --cg-card-border-selected: var(--cg-color-ink);
+  --cg-card-bg-selected: var(--cg-color-panel);
+  /* Switch */
+  --cg-switch-off-border: var(--cg-color-control-off);
+  --cg-switch-off-knob: var(--cg-color-control-off);
+  --cg-switch-on-bg: var(--cg-color-ink);
+  --cg-switch-on-knob: var(--cg-color-on-ink);
+  /* Button */
+  --cg-button-primary-bg: var(--cg-color-ink);
+  --cg-button-primary-text: var(--cg-color-on-ink);
+  --cg-button-secondary-border: var(--cg-color-ink);
+  --cg-button-secondary-text: var(--cg-color-ink);
+  --cg-button-secondary-hover-bg: var(--cg-color-panel);
+  --cg-button-link-text: var(--cg-color-ink-2);
+  --cg-button-link-hover-text: var(--cg-color-ink);
+}
+/* Cool Graphs, recipe page. Colours come from tokens only. */
+* { box-sizing: border-box; }
+body { margin: 0; }
+h1, h2, h3, p, ul, ol { margin: 0; }
+.wrap { max-width: 1080px; margin: 0 auto; padding: var(--cg-space-5) max(16px, env(safe-area-inset-right)) var(--cg-space-6) max(16px, env(safe-area-inset-left)); display: grid; gap: var(--cg-space-5); }
+h1 { font-weight: 700; font-size: var(--cg-text-display); line-height: 1.02; letter-spacing: -0.02em; text-wrap: balance; }
+.top { display: flex; justify-content: space-between; align-items: flex-start; gap: var(--cg-space-4); flex-wrap: wrap; }
+.lede { margin-top: var(--cg-space-3); color: var(--cg-color-ink-2); font-size: var(--cg-text-lg); max-width: 62ch; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.screen { display: grid; gap: var(--cg-space-4); }
+.status { display: flex; flex-wrap: wrap; gap: var(--cg-space-3); align-items: center; font-weight: 700; }
+
+/* Vegetable cards */
+.vgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: var(--cg-space-3); }
+.cg-card.veg { padding: var(--cg-space-2); gap: var(--cg-space-1); justify-items: center; min-height: 112px; align-content: center; position: relative; }
+.cg-card.veg .pic { height: 64px; width: 100%; display: flex; align-items: center; justify-content: center; }
+.cg-card.veg img { max-height: 64px; max-width: 92%; object-fit: contain; }
+.cg-card.veg b { font-size: var(--cg-text-sm); line-height: 1.2; }
+.cg-card.veg .num { position: absolute; top: 6px; right: 6px; width: 22px; height: 22px; border-radius: 50%; background: var(--cg-color-ink); color: var(--cg-color-bg); font: 700 13px/22px var(--cg-font-data); display: none; }
+.cg-card.veg[aria-pressed="true"] .num { display: block; }
+.cg-card.veg[aria-pressed="true"] { animation: pick .28s cubic-bezier(.2, .9, .3, 1.3); }
+@keyframes pick { 0% { transform: scale(.94); } 100% { transform: scale(1); } }
+.dot-fallback { width: 48px; height: 48px; border-radius: 50%; border: 1px solid var(--cg-color-ink); }
+
+/* Sticky action bar */
+.bar { position: sticky; bottom: 0; z-index: 5; background: var(--cg-color-bg); border-top: var(--cg-border-width) solid var(--cg-color-line); margin-inline: calc(-1 * max(16px, env(safe-area-inset-left))); padding: var(--cg-space-3) max(16px, env(safe-area-inset-left)) max(var(--cg-space-3), env(safe-area-inset-bottom)); display: flex; gap: var(--cg-space-3); justify-content: center; flex-wrap: wrap; }
+.bar .cg-btn { min-height: 48px; font-size: var(--cg-text-lg); display: inline-flex; align-items: center; justify-content: center; gap: var(--cg-space-2); flex: 1 1 200px; max-width: 420px; }
+
+/* Preview screen */
+.prevhead { display: grid; gap: var(--cg-space-2); }
+.prevhead h2 { font-size: var(--cg-text-title); line-height: 1.2; }
+.prevhead p { color: var(--cg-color-ink-2); }
+.prev { position: relative; width: 100%; max-width: 794px; margin: 0 auto; border: var(--cg-border-width) solid var(--cg-color-border-soft); border-radius: var(--cg-radius-sm); overflow: hidden; background: #fff; }
+.prev .sheet { transform-origin: 0 0; }
+#capture { position: fixed; left: -10000px; top: 0; }
+
+/* The recipe sheet = the PDF page. A4 at 96 dpi = 794 x 1123 px. Always light. */
+.sheet { width: 794px; height: 1123px; overflow: hidden; background: var(--cg-color-bg); color: var(--cg-color-ink); padding: 36px 44px 26px; display: flex; flex-direction: column; gap: 14px; font: 14px/1.4 var(--cg-font-display); }
+.sheet h1 { font-size: 44px; line-height: 1.02; }
+.sheet .kick { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+.sheet .tag { font-size: 18px; color: var(--cg-color-ink-2); margin-top: 8px; }
+.sheet .hero { display: flex; align-items: flex-end; justify-content: center; gap: 22px; background: var(--cg-color-panel); border-radius: var(--cg-radius-lg); padding: 18px 18px 14px; }
+.sheet .hero .one { display: grid; justify-items: center; gap: 4px; text-align: center; min-width: 190px; }
+.sheet .hero .one .pic { height: 112px; display: flex; align-items: flex-end; }
+.sheet .hero img { max-height: 112px; max-width: 220px; object-fit: contain; }
+.sheet .hero b { font-size: 22px; line-height: 1.15; }
+.sheet .hero .sc { font-size: 13px; color: var(--cg-color-ink-2); }
+.sheet .hero .sc i { font: 700 15px var(--cg-font-data); font-style: normal; color: var(--cg-color-ink); }
+.sheet .plus { font: 700 40px/1 var(--cg-font-display); padding-bottom: 50px; }
+.sheet .cols { display: grid; grid-template-columns: 11fr 12fr; gap: 24px; flex: 1 1 auto; min-height: 0; }
+.sheet h2 { font-size: 21px; margin-bottom: 8px; letter-spacing: .2px; }
+.sheet .cg-table table { font-size: 13.5px; }
+.sheet .cg-table th, .sheet .cg-table td { padding: 6px 7px; white-space: normal; }
+.sheet .cg-table td:nth-child(2), .sheet .cg-table td:nth-child(3), .sheet .cg-table td:nth-child(4) { white-space: nowrap; }
+.sheet .cg-table td:nth-child(2) { font-weight: 700; }
+.sheet .cg-table tr:hover td { background: transparent; }
+.sheet .meth { display: flex; flex-direction: column; }
+.sheet .tip { margin-top: auto; background: var(--cg-color-panel); border-radius: var(--cg-radius-sm); padding: 8px 12px; font-size: 13.5px; line-height: 1.35; }
+.sheet .tip b { display: block; font-size: 13px; letter-spacing: .3px; margin-bottom: 2px; }
+.sheet .sub { font: 400 12px var(--cg-font-display); color: var(--cg-color-ink-2); display: block; }
+.sheet ol.steps { list-style: none; padding: 0; display: grid; gap: 9px; counter-reset: s; }
+.sheet ol.steps li { counter-increment: s; display: grid; grid-template-columns: 28px 1fr; gap: 10px; align-items: start; }
+.sheet ol.steps li::before { content: counter(s); width: 26px; height: 26px; border-radius: 50%; background: var(--cg-color-ink); color: var(--cg-color-bg); font: 700 14px/26px var(--cg-font-data); text-align: center; }
+.sheet ol.steps li p { font-size: 14px; line-height: 1.38; }
+.sheet ol.steps .cg-chip { margin-left: 4px; font-size: 12px; padding: 1px 8px; white-space: nowrap; }
+.sheet .nut { display: grid; gap: 7px; }
+.sheet .nut .cg-score { grid-template-columns: 120px minmax(0, 1fr) 52px; }
+.sheet .nutwrap { display: grid; grid-template-columns: 1fr 200px; gap: 26px; align-items: start; }
+.sheet .cost b { font: 700 28px var(--cg-font-data); display: block; line-height: 1.1; }
+.sheet .cost span { font-size: 12px; color: var(--cg-color-ink-2); display: block; }
+.sheet .foot { border-top: 1px solid var(--cg-color-line); padding-top: 8px; font-size: 11px; line-height: 1.35; color: var(--cg-color-ink-2); }
+.sheet .foot b { color: var(--cg-color-ink); }
+
+@media (max-width: 480px) { .bar { gap: var(--cg-space-2); } .bar .cg-btn { flex: 1 1 140px; padding-inline: var(--cg-space-3); font-size: var(--cg-text-md); } }
+@media (max-width: 400px) { .vgrid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .cg-card.veg { min-height: 104px; } }
+@media (prefers-reduced-motion: reduce) { .cg-card.veg[aria-pressed="true"] { animation: none; } }
+
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>Pick two. Get a recipe.</h1>
+      <p class="lede">Choose any two of 27 vegetables and download a one-page A4 recipe card (PDF) for 2 servings, with amounts in g, times in min and oven temperatures in &deg;C. Nutrition is per 100 g of raw vegetable (USDA, provisional) and prices are in &euro; per kg (MAPA, July 2026). The method is a general suggestion, not a tested recipe.</p>
+    </div>
+    <button class="cg-switch" id="theme" type="button" role="switch" aria-checked="false">
+      <span class="cg-switch__track"><span class="cg-switch__knob">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="currentColor"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg>
+      </span></span><span>Dark mode</span>
+    </button>
+  </header>
+
+  <main id="app"></main>
+  <div class="sr" id="live" role="status" aria-live="polite"></div>
+
+  <section class="notes" aria-labelledby="notes-h">
+    <h2 id="notes-h">Sources and notes</h2>
+    <ul>
+      <li><b>Recipe:</b> the dish type (roast, salad, pan-cooked greens or warm and fresh) is chosen from how each vegetable is usually cooked. Amounts are for 2 servings, in g as bought (the whole product, before trimming), with the edible part in g next to it. Times in min and temperatures in &deg;C are typical values, so adjust to your oven and taste. This is generated cooking guidance, not data.</li>
+      <li><b>Nutrition:</b> approximate amounts per 100 g of raw vegetable, USDA FoodData Central, provisional until Spain's BEDCA food database is imported. The card shows the share of the EU daily reference (Regulation 1169/2011, Annex XIII; fiber uses the EFSA 25 g) in one serving. Cooking changes nutrient amounts, so treat these as a guide. The Nutrient Density Score (0 to 100) is per 100 g of raw vegetable, not per calorie.</li>
+      <li><b>Prices:</b> average Spanish consumer prices in &euro; per kg as bought, July 2026, MAPA panel (Spain's Ministry of Agriculture, Fisheries and Food). Vegetables with a product-group price or an estimate are marked on the card.</li>
+      <li><b>PDF:</b> the card is always drawn in the light theme so it prints well, and is a picture of the page (text can be copied from a hidden text layer). Illustrations come from the Vegetable Chart prototype. Page built with the Cool Graphs design system.</li>
+    </ul>
+  </section>
+</div>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var ICONS = {"warning": ["M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"], "error": ["M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"], "close": ["M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"], "info": ["M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"], "check_circle": ["M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm4.59-12.42L10 14.17l-2.59-2.58L6 13l4 4 8-8z"], "arrow_forward": ["M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"]};
+  function icon(n, size) { size = size || 24; return '<svg class="cg-icon" width="' + size + '" height="' + size + '" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">' + ICONS[n].map(function (d) { return '<path d="' + d + '"/>'; }).join('') + '</svg>'; }
+
+  /* ---------- Data (from the Vegetable Chart prototype) ---------- */
+  // Reference daily intakes: EU Reg. 1169/2011 Annex XIII (fiber: EFSA 25 g).
+  var REF = { prot: 50, fib: 25, a: 800, c: 80, e: 12, k: 75, fol: 200, b6: 1.4, pot: 2000, mg: 375, ca: 800, fe: 14 };
+  var NUTRIENTS = Object.keys(REF);
+  var NAMES = { prot: ['Protein', 'g'], fib: ['Fiber', 'g'], a: ['Vitamin A', '\u00b5g'], c: ['Vitamin C', 'mg'], e: ['Vitamin E', 'mg'], k: ['Vitamin K', '\u00b5g'],
+    fol: ['Folate', '\u00b5g'], b6: ['Vitamin B6', 'mg'], pot: ['Potassium', 'mg'], mg: ['Magnesium', 'mg'], ca: ['Calcium', 'mg'], fe: ['Iron', 'mg'] };
+  // [slug, name, color, kcal, prot, fib, a, c, e, k, fol, b6, pot, mg, ca, fe, price \u20ac/kg, price source]
+  var RAW = [
+   ["esparrago-verde","Green asparagus","#7FA650",20,2.2,2.1,38,5.6,1.1,41.6,52,.091,202,14,24,2.14,4.47,"panel"],
+   ["champinon","Mushroom","#D8C8B4",22,3.1,1.0,0,2.1,.01,0,17,.104,318,9,3,.5,5.66,"grupo"],
+   ["lechuga-romana","Romaine lettuce","#8DBB5A",17,1.2,2.1,436,4,.13,102.5,136,.074,247,14,33,.97,3.22,"grupo"],
+   ["alcachofa","Artichoke","#6E8B4E",47,3.3,5.4,1,11.7,.19,14.8,68,.116,370,60,44,1.28,4.39,"panel"],
+   ["remolacha","Beetroot","#8E2449",43,1.6,2.8,2,4.9,.04,.2,109,.067,325,23,16,.8,2.2,"estimado"],
+   ["puerro","Leek","#B4CC86",61,1.5,1.8,83,12,.92,47,64,.233,180,28,59,2.1,4.44,"panel"],
+   ["cebolleta","Spring onion","#9CC26A",32,1.8,2.6,50,18.8,.55,207,64,.061,276,20,72,1.48,2.6,"estimado"],
+   ["maiz","Sweet corn","#E8B93A",86,3.3,2.0,9,6.8,.07,.3,42,.093,270,37,2,.52,3.5,"estimado"],
+   ["apio","Celery","#A9C98A",16,.7,1.6,22,3.1,.27,29.3,36,.074,260,11,40,.2,1.76,"panel"],
+   ["berenjena","Eggplant","#4B2E5A",25,1.0,3.0,1,2.2,.3,3.5,22,.084,229,14,9,.23,2.08,"panel"],
+   ["calabaza","Butternut squash","#E0913A",45,1.0,2.0,532,21,1.44,1.1,27,.154,352,34,48,.7,2.14,"panel"],
+   ["pepino","Cucumber","#3F7A3A",15,.65,.5,5,2.8,.03,16.4,7,.04,147,13,16,.28,1.8,"panel"],
+   ["patata","Potato","#C9A15A",77,2.0,2.2,0,19.7,.01,2,15,.298,425,23,12,.81,1.22,"panel"],
+   ["cebolla","Onion","#C98A5A",40,1.1,1.7,0,7.4,.02,.4,19,.12,146,10,23,.21,1.92,"panel"],
+   ["zanahoria","Carrot","#E8762D",41,.9,2.8,835,5.9,.66,13.2,19,.138,320,12,33,.3,1.49,"panel"],
+   ["tomate","Tomato","#D9412F",18,.9,1.2,42,13.7,.54,7.9,15,.08,237,11,10,.27,2.3,"panel"],
+   ["calabacin","Zucchini","#4F7D3A",17,1.2,1.0,10,17.9,.12,4.3,24,.163,261,18,16,.37,1.61,"panel"],
+   ["acelga","Swiss chard","#3F8F4A",19,1.8,1.6,306,30,1.89,830,14,.099,379,81,51,1.8,2.74,"panel"],
+   ["espinaca","Spinach","#2F6B35",23,2.9,2.2,469,28.1,2.03,483,194,.195,558,79,99,2.71,4.87,"grupo"],
+   ["repollo","Cabbage","#B9D39A",25,1.3,2.5,5,36.6,.15,76,43,.124,170,12,40,.47,1.6,"panel"],
+   ["guisantes","Green peas","#6FA83E",81,5.4,5.7,38,40,.13,24.8,65,.169,244,33,25,1.47,6.0,"estimado"],
+   ["coliflor","Cauliflower","#EDE3C8",25,1.9,2.0,0,48.2,.08,15.5,57,.184,299,15,22,.42,2.1,"panel"],
+   ["col-bruselas","Brussels sprouts","#5E8F3A",43,3.4,3.8,38,85,.88,177,61,.219,389,23,42,1.4,4.2,"estimado"],
+   ["brocoli","Broccoli","#3E7A35",34,2.8,2.6,31,89.2,.78,101.6,63,.175,316,21,47,.73,2.48,"panel"],
+   ["pimiento-rojo","Red bell pepper","#C8302A",31,1.0,2.1,157,127.7,1.58,4.9,46,.291,211,12,7,.43,2.68,"panel"],
+   ["kale","Kale","#355E3B",35,2.9,4.1,241,93.4,.66,389.6,62,.147,348,33,254,1.6,6.5,"estimado"],
+   ["endibia","Belgian endive","#E9E3A8",17,.9,3.1,1,2.8,0,0,37,.042,211,10,19,.24,3.22,"grupo"]
+  ];
+  // Edible portion: share of the weight bought that you actually eat (USDA refuse factors, approximate).
+  var EDIBLE = { "esparrago-verde": .55, champinon: .97, "lechuga-romana": 1, alcachofa: .40, remolacha: .80, puerro: .60, cebolleta: .85, maiz: .45, apio: .80, berenjena: .90,
+    calabaza: .75, pepino: .80, patata: .80, cebolla: .90, zanahoria: .88, tomate: 1, calabacin: .95, acelga: .85, espinaca: .85, repollo: .80, guisantes: .80,
+    coliflor: .60, "col-bruselas": .90, brocoli: .65, "pimiento-rojo": 1, kale: .75, endibia: 1 };
+  var SRC = { panel: 'Official consumer price \u00b7 MAPA panel', grupo: 'Price of its product group \u00b7 MAPA panel', estimado: 'Estimated price \u00b7 to confirm with Mercamadrid' };
+  var SRC_SHORT = { panel: 'MAPA', grupo: 'MAPA group', estimado: 'Estimate' };
+
+  var veg = RAW.map(function (r) {
+    var n = {}; NUTRIENTS.forEach(function (k, i) { n[k] = r[4 + i]; });
+    var kcal = r[3], price = r[16], edible = EDIBLE[r[0]] || 1, priceEdible = price / edible;
+    var capped = {}, score = 0, perEuro = 0, gramsPerEuro = 1000 / priceEdible;
+    NUTRIENTS.forEach(function (k) {
+      capped[k] = Math.min(100, n[k] / REF[k] * 100); score += capped[k];
+      perEuro += Math.min(100, n[k] * gramsPerEuro / 100 / REF[k] * 100);
+    });
+    return { slug: r[0], name: r[1], color: r[2], kcal: kcal, n: n, capped: capped, price: price, priceEdible: priceEdible, edible: edible, source: r[17],
+      score: score / NUTRIENTS.length, perEuro: perEuro / NUTRIENTS.length, gramsPerEuro: gramsPerEuro };
+  });
+
+  /* ---------- Theme ---------- */
+  var themeBtn = document.getElementById('theme');
+  function setTheme(dark) { root.setAttribute('data-theme', dark ? 'dark' : 'light'); themeBtn.setAttribute('aria-checked', String(dark)); }
+  if (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches) setTheme(true);
+  themeBtn.addEventListener('click', function () { setTheme(root.getAttribute('data-theme') !== 'dark'); });
+
+  /* ---------- Cooking profile of each vegetable ----------
+     roast / saute = typical minutes. raw = pleasant raw. rawPref = best raw. rawOnly = not cooked here. leaf = leafy green.
+     buy = grams as bought for 2 servings. prep / rawPrep = how to prepare it cooked / raw. */
+  var P = {
+    'esparrago-verde': { roast: 12, saute: 5, buy: 300, prep: 'snap off the woody ends' },
+    champinon: { roast: 15, saute: 7, buy: 250, prep: 'wipe clean and halve' },
+    'lechuga-romana': { leaf: 1, saute: 1, raw: 1, rawPref: 1, buy: 200, prep: 'tear the leaves', rawPrep: 'tear the leaves' },
+    alcachofa: { roast: 30, saute: 12, buy: 500, prep: 'trim the tough outer leaves and the choke, then quarter' },
+    remolacha: { roast: 35, saute: 15, raw: 1, buy: 300, prep: 'peel and cut into 2 cm cubes', rawPrep: 'peel and grate' },
+    puerro: { roast: 20, saute: 8, buy: 300, prep: 'wash well and slice into 1 cm rings' },
+    cebolleta: { roast: 10, saute: 3, raw: 1, rawPref: 1, buy: 150, prep: 'slice, white and green parts', rawPrep: 'slice thinly' },
+    maiz: { roast: 15, saute: 6, buy: 450, prep: 'cut the kernels off the cobs' },
+    apio: { roast: 20, saute: 6, raw: 1, rawPref: 1, buy: 200, prep: 'slice thinly', rawPrep: 'slice very thinly' },
+    berenjena: { roast: 25, saute: 10, buy: 300, prep: 'cut into 2 cm cubes' },
+    calabaza: { roast: 30, saute: 15, buy: 400, prep: 'peel, deseed and cut into 2 cm cubes' },
+    pepino: { rawOnly: 1, raw: 1, rawPref: 1, buy: 300, prep: 'slice thinly', rawPrep: 'slice thinly' },
+    patata: { roast: 35, saute: 15, buy: 400, prep: 'cut into 2 cm cubes' },
+    cebolla: { roast: 25, saute: 10, raw: 1, buy: 200, prep: 'cut into half-moons', rawPrep: 'slice very thinly' },
+    zanahoria: { roast: 30, saute: 10, raw: 1, buy: 300, prep: 'peel and slice into coins', rawPrep: 'peel and grate' },
+    tomate: { roast: 20, saute: 6, raw: 1, rawPref: 1, buy: 400, prep: 'cut into wedges', rawPrep: 'cut into wedges' },
+    calabacin: { roast: 20, saute: 6, raw: 1, buy: 300, prep: 'cut into half-moons', rawPrep: 'slice into thin ribbons' },
+    acelga: { leaf: 1, saute: 5, buy: 250, prep: 'separate stems and leaves, then chop both' },
+    espinaca: { leaf: 1, saute: 1, raw: 1, rawPref: 1, buy: 200, prep: 'wash the leaves', rawPrep: 'wash the leaves' },
+    repollo: { roast: 25, saute: 8, raw: 1, buy: 300, prep: 'shred', rawPrep: 'shred very finely' },
+    guisantes: { roast: 10, saute: 4, raw: 1, buy: 300, prep: 'shell the peas (frozen is fine, no need to thaw)', rawPrep: 'shell the peas' },
+    coliflor: { roast: 25, saute: 8, buy: 400, prep: 'cut into small florets' },
+    'col-bruselas': { roast: 25, saute: 10, buy: 300, prep: 'trim and halve' },
+    brocoli: { roast: 20, saute: 6, buy: 350, prep: 'cut into small florets' },
+    'pimiento-rojo': { roast: 25, saute: 8, raw: 1, buy: 300, prep: 'deseed and cut into strips', rawPrep: 'deseed and cut into thin strips' },
+    kale: { leaf: 1, saute: 4, raw: 1, buy: 150, prep: 'remove the stems and tear the leaves', rawPrep: 'remove the stems, tear the leaves and massage with a little salt for 1 min' },
+    endibia: { leaf: 1, saute: 4, raw: 1, rawPref: 1, buy: 200, prep: 'separate the leaves', rawPrep: 'separate the leaves' }
+  };
+
+  /* ---------- Helpers ---------- */
+  var bySlug = {}; veg.forEach(function (v) { bySlug[v.slug] = v; });
+  var sorted = veg.slice().sort(function (a, b) { return a.name.localeCompare(b.name); });
+  function lc(n) { return n.replace(/\b(Brussels|Belgian|Swiss)\b/g, '\u0001$1').toLowerCase().replace(/\u0001(\w)/g, function (m, c) { return c.toUpperCase(); }); }
+  function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+  function pic(v, cls) { return '<img src="../shared/icons/' + v.slug + '.png" alt="" data-fb="' + v.color + '"' + (cls ? ' class="' + cls + '"' : '')+ '>'; }
+  function hash(s) { var h = 0; for (var i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0; return h; }
+  function pick(list, key) { return list[hash(key) % list.length]; }
+  function chip(t) { return '<span class="cg-chip">' + t + '</span>'; }
+  function min(n) { return n + ' min'; }
+  function banner(kind, name, title, text) {
+    return '<div class="cg-banner cg-banner--' + kind + '" role="alert"><span class="cg-banner__icon">' + icon(name) + '</span><div class="cg-banner__body"><strong class="cg-banner__title">' + title + '</strong><div>' + text + '</div></div></div>';
+  }
+  document.addEventListener('error', function (e) {
+    var img = e.target; if (!img || img.tagName !== 'IMG' || !img.hasAttribute('data-fb')) return;
+    var fb = document.createElement('span'); fb.className = 'dot-fallback'; fb.style.background = img.getAttribute('data-fb'); img.replaceWith(fb);
+  }, true);
+
+  /* ---------- Recipe engine: any two vegetables give one recipe ---------- */
+  function makeRecipe(a, b) {
+    var pa = P[a.slug], pb = P[b.slug], key = a.slug + '+' + b.slug;
+    var items = [a, b];
+    var type, title, tag, steps = [], pantry = [], cook = 0, prepMin = 10;
+    function prepStep(raw) {
+      var t = items.map(function (v) { return '<b>' + lc(v.name) + '</b>: ' + ((raw && P[v.slug].rawPrep) || P[v.slug].prep); }).join('. ');
+      return { lead: 'Prep', text: cap(t.charAt(0) === '<' ? t : t) + '.', meta: min(prepMin) };
+    }
+    var bothRaw = pa.raw && pb.raw && (pa.rawPref || pb.rawPref);
+    var anyLeaf = pa.leaf || pb.leaf;
+    var anyRawOnly = pa.rawOnly || pb.rawOnly;
+
+    if (bothRaw) {
+      type = 'salad';
+      title = pick(['Crunchy %A and %B salad', 'Fresh %A and %B salad', 'Cool %A and %B bowl'], key);
+      tag = pick(['No cooking, ready in minutes.', 'Crisp, bright and simple.', 'A raw, quick plate for a warm day.'], key);
+      pantry = [['Olive oil', '2', 'tbsp'], ['Lemon juice', '1', 'tbsp'], ['Salt', '1/2', 'tsp'], ['Black pepper', '1', 'pinch']];
+      steps.push(prepStep(true));
+      steps.push({ lead: 'Dress', text: 'Whisk the olive oil, lemon juice, salt and pepper in a large bowl.' });
+      steps.push({ lead: 'Toss', text: 'Add both vegetables and toss well. Let it rest so the flavours mix.', meta: min(5) });
+      steps.push({ lead: 'Serve', text: 'Taste, add salt or lemon if needed, and serve cold.' });
+      cook = 5;
+    } else if (anyLeaf) {
+      type = 'greens';
+      var leaves = items.filter(function (v) { return P[v.slug].leaf; }).sort(function (x, y) { return P[y.slug].saute - P[x.slug].saute; });
+      var others = items.filter(function (v) { return !P[v.slug].leaf; });
+      var held = others.filter(function (v) { return P[v.slug].rawOnly; });
+      var cooked = others.filter(function (v) { return !P[v.slug].rawOnly; });
+      var main = cooked[0] || leaves[0];
+      title = others.length ? pick(['Garlicky %M with wilted %L', 'Pan-tossed %M and %L'], key) : 'Garlicky %A and %B saut\u00e9';
+      tag = pick(['One pan, about ten minutes at the stove.', 'Quick, green and garlicky.', 'A fast pan dish that tastes like more effort.'], key);
+      pantry = [['Olive oil', '1', 'tbsp'], ['Garlic', '1', 'clove'], ['Lemon', '1/2', 'piece'], ['Salt', '1/2', 'tsp'], ['Black pepper', '1', 'pinch']];
+      steps.push(prepStep(false));
+      steps.push({ lead: 'Heat', text: 'Warm the olive oil in a large pan over medium heat. Add the sliced garlic and stir for 30 s.', meta: '30 s' });
+      cooked.forEach(function (v) {
+        steps.push({ lead: 'Cook', text: 'Add the <b>' + lc(v.name) + '</b> and cook, stirring, until tender.', meta: min(P[v.slug].saute) });
+        cook += P[v.slug].saute;
+      });
+      leaves.forEach(function (v) {
+        steps.push({ lead: 'Wilt', text: 'Add the <b>' + lc(v.name) + '</b> and cook until it just softens.', meta: min(P[v.slug].saute) });
+        cook += P[v.slug].saute;
+      });
+      held.forEach(function (v) { steps.push({ lead: 'Fresh', text: 'Take the pan off the heat and stir in the fresh <b>' + lc(v.name) + '</b>.' }); });
+      steps.push({ lead: 'Finish', text: 'Add the salt, pepper and a squeeze of lemon. Serve straight away.' });
+      title = title.replace('%M', lc(main.name)).replace('%L', lc(leaves[0].name));
+      cook += 1;
+    } else if (anyRawOnly) {
+      type = 'warm';
+      var w = pa.rawOnly ? b : a, f = pa.rawOnly ? a : b;
+      title = 'Warm ' + lc(w.name) + ' with fresh ' + lc(f.name);
+      tag = pick(['Hot and cold on one plate.', 'Warm, crisp and fresh.'], key);
+      pantry = [['Olive oil', '2.5', 'tbsp'], ['Lemon juice', '1', 'tbsp'], ['Salt', '3/4', 'tsp'], ['Black pepper', '1', 'pinch']];
+      steps.push({ lead: 'Heat', text: 'Heat the oven to <b>200 \u00b0C</b> (180 \u00b0C with a fan).', meta: '200 \u00b0C' });
+      steps.push(prepStep(false));
+      steps.push({ lead: 'Roast', text: 'Toss the <b>' + lc(w.name) + '</b> with 1.5 tbsp olive oil and half the salt. Spread on a tray and roast until tender and golden.', meta: min(P[w.slug].roast) });
+      steps.push({ lead: 'Dress', text: 'Meanwhile, toss the <b>' + lc(f.name) + '</b> with 1 tbsp olive oil, the lemon juice, the rest of the salt and the pepper.' });
+      steps.push({ lead: 'Serve', text: 'Let the roasted vegetable cool for 3 min, then combine and serve warm.', meta: min(3) });
+      cook = P[w.slug].roast + 3;
+    } else {
+      type = 'roast';
+      var first = pa.roast >= pb.roast ? a : b, second = first === a ? b : a;
+      var t1 = P[first.slug].roast, t2 = P[second.slug].roast, gap = t1 - t2;
+      title = pick(['Sheet-pan %A and %B', 'Roasted %A and %B tray', 'Golden roasted %A and %B'], key);
+      tag = pick(['One tray, one oven, very little washing up.', 'Roasted until sweet and golden.', 'Hands-off cooking: prep, roast, eat.'], key);
+      pantry = [['Olive oil', '2', 'tbsp'], ['Garlic', '1', 'clove'], ['Lemon', '1/2', 'piece'], ['Salt', '1/2', 'tsp'], ['Black pepper', '1', 'pinch']];
+      steps.push({ lead: 'Heat', text: 'Heat the oven to <b>200 \u00b0C</b> (180 \u00b0C with a fan).', meta: '200 \u00b0C' });
+      steps.push(prepStep(false));
+      steps.push({ lead: 'Season', text: 'Toss the vegetables with the olive oil, salt and pepper and spread them in one layer on a large tray.' });
+      if (gap >= 5) {
+        steps.push({ lead: 'Roast', text: 'Roast the <b>' + lc(first.name) + '</b> on its own first.', meta: min(gap) });
+        steps.push({ lead: 'Add', text: 'Add the <b>' + lc(second.name) + '</b> and the sliced garlic clove. Roast until both are tender and golden.', meta: min(t2) });
+      } else {
+        steps.push({ lead: 'Roast', text: 'Roast both together with the sliced garlic clove until tender and golden.', meta: min(t1) });
+      }
+      steps.push({ lead: 'Finish', text: 'Squeeze over the lemon, taste for salt and serve hot.' });
+      cook = t1;
+    }
+    title = title.replace('%A', lc(a.name)).replace('%B', lc(b.name));
+    title = cap(title);
+    return { a: a, b: b, type: type, title: title, tag: tag, steps: steps, pantry: pantry, time: prepMin + cook, key: key };
+  }
+
+  /* ---------- Nutrition and cost for the card ---------- */
+  function numbers(r) {
+    var items = [r.a, r.b], servings = 2, tot = {}, cost = 0, est = false;
+    NUTRIENTS.forEach(function (k) { tot[k] = 0; });
+    items.forEach(function (v) {
+      var g = P[v.slug].buy * v.edible;
+      NUTRIENTS.forEach(function (k) { tot[k] += g / servings * v.n[k] / 100 / REF[k] * 100; });
+      cost += P[v.slug].buy / 1000 * v.price; if (v.source !== 'panel') est = true;
+    });
+    var list = NUTRIENTS.map(function (k) { return { k: k, label: NAMES[k][0], pct: tot[k] }; }).sort(function (x, y) { return y.pct - x.pct; }).slice(0, 5);
+    var edible = items.reduce(function (s, v) { return s + P[v.slug].buy * v.edible; }, 0) / servings;
+    return { list: list, cost: cost, est: est, edible: Math.round(edible / 10) * 10 };
+  }
+
+  var TIPS = { roast: 'Serve with yoghurt, feta or a fried egg. Leftovers keep 2 days in the fridge.', salad: 'Add a handful of nuts or a boiled egg to make it a meal. Best eaten the same day.', greens: 'Spoon over rice, pasta or toast, with a fried egg on top.', warm: 'Serve with grilled fish or chicken, or with good bread.' };
+
+  /* ---------- The sheet (preview and PDF use the same markup) ---------- */
+  function sheetHTML(r) {
+    var n = numbers(r), items = [r.a, r.b];
+    var rows = items.map(function (v) {
+      var p = P[v.slug], ed = Math.round(p.buy * v.edible / 5) * 5;
+      return '<tr><td>' + cap(lc(v.name)) + '<span class="sub">' + (v.source === 'panel' ? '' : v.source === 'grupo' ? 'group price' : 'estimated price') + '</span></td><td>' + p.buy + '</td><td>g as bought</td><td>' + ed + ' g edible</td></tr>';
+    }).concat(r.pantry.map(function (x) { return '<tr><td>' + x[0] + '</td><td>' + x[1] + '</td><td>' + x[2] + '</td><td></td></tr>'; })).join('');
+    rows = rows.replace(/<span class="sub"><\/span>/g, '');
+    var steps = r.steps.map(function (s) { return '<li><p><b>' + s.lead + '.</b> ' + s.text + (s.meta ? ' ' + chip(s.meta) : '') + '</p></li>'; }).join('');
+    var bars = n.list.map(function (x) {
+      var w = Math.max(0, Math.min(100, x.pct));
+      return '<div class="cg-score"><span class="cg-score__label">' + x.label + '</span><div class="cg-score__track"><div class="cg-score__bar" style="width:' + w + '%"></div></div><span class="cg-score__value">' + Math.round(x.pct) + ' %</span></div>';
+    }).join('');
+    var hero = items.map(function (v) {
+      return '<div class="one"><span class="pic">' + pic(v) + '</span><b>' + cap(lc(v.name)) + '</b><span class="sc">Nutrient score <i>' + Math.round(v.score) + '</i> of 100 (per 100 g)</span></div>';
+    }).join('<span class="plus" aria-hidden="true">+</span>');
+    return '<div class="sheet">' +
+      '<header><div class="kick">' + chip('Recipe') + chip('2 servings') + chip('About ' + r.time + ' min') + '<span class="cg-chip cg-chip--solid">' + { salad: 'No cooking', greens: 'One pan', warm: 'Oven + fresh', roast: 'One tray' }[r.type] + '</span></div>' +
+      '<h1>' + r.title + '</h1><p class="tag">' + r.tag + '</p></header>' +
+      '<div class="hero">' + hero + '</div>' +
+      '<div class="cols"><section><h2>You need</h2><div class="cg-table"><table><thead><tr><th scope="col">Ingredient</th><th scope="col">Amount</th><th scope="col">Unit</th><th scope="col">Edible part</th></tr></thead><tbody>' + rows + '</tbody></table></div></section>' +
+      '<section class="meth"><h2>Method</h2><ol class="steps">' + steps + '</ol><div class="tip"><b>Serving idea</b>' + TIPS[r.type] + '</div></section></div>' +
+      '<section><h2>In one serving (about ' + n.edible + ' g of vegetables)</h2><div class="nutwrap"><div class="nut">' + bars + '</div>' +
+      '<div class="cost"><b>&euro; ' + n.cost.toFixed(2) + '</b><span>for the two vegetables, 2 servings' + (n.est ? ' (includes an estimated or group price)' : '') + '</span></div></div>' +
+      '<p class="foot" style="margin-top:6px">Bars show the share of the EU daily reference in one serving, from raw values.</p></section>' +
+      '<footer class="foot"><b>Suggested method, not a tested recipe.</b> Times in min and oven temperatures in &deg;C are typical values. Nutrition: approximate per 100 g raw vegetable, USDA FoodData Central (provisional); daily reference EU 1169/2011 Annex XIII, fiber EFSA 25 g; Score = nutrient density per 100 g, 0 to 100. Prices: &euro; per kg as bought, MAPA panel, July 2026. Cooking changes nutrient amounts. Illustrations: Vegetable Chart. Cool Graphs design system.</footer>' +
+      '</div>';
+  }
+
+  /* ---------- Screens ---------- */
+  var app = document.getElementById('app'), live = document.getElementById('live');
+  var state = { sel: [], screen: 'pick', recipe: null };
+  function say(t) { live.textContent = ''; setTimeout(function () { live.textContent = t; }, 30); }
+
+  function barHTML() {
+    var s = state.sel;
+    if (s.length === 2) return '<button type="button" class="cg-btn cg-btn--primary" id="gen">Generate recipe: ' + lc(bySlug[s[0]].name) + ' + ' + lc(bySlug[s[1]].name) + ' ' + icon('arrow_forward') + '</button>';
+    return '<button type="button" class="cg-btn cg-btn--primary" id="gen" disabled>' + (s.length ? 'Pick one more vegetable' : 'Pick two vegetables') + '</button>';
+  }
+  function renderPick() {
+    var h = '<section class="screen" aria-labelledby="h-pick"><div class="status"><h2 id="h-pick" style="font-size:var(--cg-text-title)">Choose your two vegetables</h2>' + '<span class="cg-chip" id="count"></span></div>' +
+      '<div class="vgrid" role="group" aria-label="Vegetables">' +
+      sorted.map(function (v) {
+        return '<button type="button" class="cg-card veg" data-s="' + v.slug + '" aria-pressed="false"><span class="num" aria-hidden="true"></span><span class="pic">' + pic(v) + '</span><b>' + v.name + '</b></button>';
+      }).join('') + '</div><div class="bar" id="bar"></div></section>';
+    app.innerHTML = h;
+    app.querySelectorAll('.veg').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var s = b.getAttribute('data-s'), i = state.sel.indexOf(s);
+        if (i >= 0) { state.sel.splice(i, 1); say(bySlug[s].name + ' removed.'); }
+        else {
+          if (state.sel.length === 2) { var gone = state.sel.shift(); say(bySlug[gone].name + ' replaced by ' + bySlug[s].name + '.'); }
+          else say(bySlug[s].name + ' selected.');
+          state.sel.push(s);
+        }
+        updatePick();
+      });
+    });
+    updatePick();
+  }
+  function updatePick() {
+    app.querySelectorAll('.veg').forEach(function (b) {
+      var i = state.sel.indexOf(b.getAttribute('data-s'));
+      b.setAttribute('aria-pressed', String(i >= 0));
+      b.querySelector('.num').textContent = i >= 0 ? String(i + 1) : '';
+    });
+    document.getElementById('count').textContent = state.sel.length + ' of 2 selected';
+    var bar = document.getElementById('bar'); bar.innerHTML = barHTML();
+    document.getElementById('gen').addEventListener('click', function () {
+      if (state.sel.length !== 2) return;
+      state.recipe = makeRecipe(bySlug[state.sel[0]], bySlug[state.sel[1]]); state.screen = 'preview'; render(true);
+    });
+  }
+
+  var scaleTimer;
+  function fitPreview() {
+    var wrap = document.querySelector('.prev'); if (!wrap) return;
+    var s = Math.min(1, wrap.clientWidth / 794), sheet = wrap.querySelector('.sheet');
+    sheet.style.transform = 'scale(' + s + ')'; wrap.style.height = Math.round(1123 * s) + 'px';
+  }
+  window.addEventListener('resize', function () { clearTimeout(scaleTimer); scaleTimer = setTimeout(fitPreview, 60); });
+
+  function renderPreview(focus) {
+    var r = state.recipe;
+    app.innerHTML = '<section class="screen" aria-labelledby="h-prev"><div class="prevhead"><h2 id="h-prev" tabindex="-1">' + r.title + '</h2>' +
+      '<p>Preview of your one-page A4 recipe card. The PDF looks exactly like this, always in the light theme. On a phone, pinch to zoom the preview.</p></div><div id="msg"></div>' +
+      '<div class="prev" role="img" aria-label="Preview of the recipe card for ' + r.title + '">' + sheetHTML(r) + '</div>' +
+      '<div class="bar"><button type="button" class="cg-btn cg-btn--secondary" id="back">' + 'Change vegetables</button>' +
+      '<button type="button" class="cg-btn cg-btn--primary" id="dl">Download PDF ' + icon('arrow_forward') + '</button></div></section>';
+    fitPreview();
+    document.getElementById('back').addEventListener('click', function () { state.screen = 'pick'; render(true); });
+    document.getElementById('dl').addEventListener('click', download);
+    if (focus) document.getElementById('h-prev').focus({ preventScroll: true });
+  }
+
+  /* ---------- PDF ---------- */
+  function plain(html) { var d = document.createElement('div'); d.innerHTML = html; return d.textContent.replace(/\s+/g, ' ').trim(); }
+  function waitImages(el) {
+    return Promise.all([].slice.call(el.querySelectorAll('img')).map(function (im) {
+      return im.complete ? Promise.resolve() : new Promise(function (ok) { im.onload = im.onerror = ok; });
+    }));
+  }
+  /* Turn each illustration into inline data so the picture of the page can never be blocked by the browser's cross-site image rules. */
+  function inlineImages(el) {
+    return Promise.all([].slice.call(el.querySelectorAll('img')).map(function (im) {
+      return fetch(im.src).then(function (res) { return res.blob(); }).then(function (bl) {
+        return new Promise(function (ok) { var fr = new FileReader(); fr.onload = function () { im.src = fr.result; im.onload = ok; if (im.complete) ok(); }; fr.onerror = ok; fr.readAsDataURL(bl); });
+      }).catch(function () {});
+    }));
+  }
+  function makePdf(r) {
+    var cap_ = document.getElementById('capture');
+    if (!cap_) { cap_ = document.createElement('div'); cap_.id = 'capture'; document.body.appendChild(cap_); }
+    cap_.innerHTML = sheetHTML(r);
+    var el = cap_.querySelector('.sheet');
+    return Promise.all([document.fonts ? document.fonts.ready : 0, waitImages(el)]).then(function () { return inlineImages(el); }).then(function () { return waitImages(el); }).then(function () {
+      return html2canvas(el, { scale: 3, useCORS: true, backgroundColor: null, width: 794, height: 1123, windowWidth: 900 });
+    }).then(function (canvas) {
+      var pdf = new window.jspdf.jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' });
+      pdf.setProperties({ title: r.title + ' - Vegetable Recipe', subject: 'One-page recipe card', creator: 'Cool Graphs' });
+      pdf.addImage(canvas.toDataURL('image/jpeg', 0.95), 'JPEG', 0, 0, 210, 297);
+      var text = r.title + '. ' + r.tag + ' ' + plain(el.querySelector('.cols').innerHTML.replace(/<\/(li|tr|p)>/g, '. '));
+      pdf.setFontSize(6);
+      pdf.text(pdf.splitTextToSize(text, 190), 10, 10, { renderingMode: 'invisible' });
+      return pdf.output('blob');
+    });
+  }
+  function saveFile(blob, name) {
+    var getDl = (window.claude && claude.use) ? claude.use('downloads') : Promise.resolve(null);
+    return getDl.catch(function () { return null; }).then(function (dl) {
+      if (dl) return dl.save({ filename: name, data: blob }).then(function () { return 'saved'; }, function (e) { if (e && e.code === 'declined') return 'declined'; throw e; });
+      var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(function () { URL.revokeObjectURL(a.href); }, 5000); return 'saved';
+    });
+  }
+  function download() {
+    var r = state.recipe, btn = document.getElementById('dl'), msg = document.getElementById('msg');
+    if (!window.html2canvas || !window.jspdf) { msg.innerHTML = banner('error', 'error', 'The PDF tool did not load', 'Check your connection and reload the page, then try again.'); return; }
+    btn.disabled = true; msg.innerHTML = ''; btn.firstChild.nodeValue = 'Preparing PDF... '; say('Preparing the PDF.');
+    makePdf(r).then(function (blob) { return saveFile(blob, 'recipe-' + r.a.slug + '-' + r.b.slug + '.pdf'); }).then(function (res) {
+      if (res === 'saved') { msg.innerHTML = '<div class="cg-banner cg-banner--success" role="status"><span class="cg-banner__icon">' + icon('check_circle') + '</span><div class="cg-banner__body"><strong class="cg-banner__title">PDF ready</strong><div>Your recipe card was sent to your downloads.</div></div></div>'; say('PDF ready.'); }
+    }).catch(function () {
+      msg.innerHTML = banner('error', 'error', 'The PDF could not be made', 'Try again. If it keeps failing, reload the page.');
+    }).then(function () { btn.disabled = false; btn.firstChild.nodeValue = 'Download PDF '; });
+  }
+
+  function render(focus) {
+    if (state.screen === 'pick') { renderPick(); if (focus) document.getElementById('h-pick').scrollIntoView({ block: 'start' }); }
+    else renderPreview(focus);
+    if (focus) window.scrollTo({ top: 0 });
+  }
+  render(false);
+  window.__recipe = { makeRecipe: makeRecipe, sheetHTML: sheetHTML, veg: veg };
+})();
+
+</script>

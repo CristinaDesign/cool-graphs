@@ -1,0 +1,29 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>Pick two. Get a recipe.</h1>
+      <p class="lede">Choose any two of 27 vegetables and download a one-page A4 recipe card (PDF) for 2 servings, with amounts in g, times in min and oven temperatures in &deg;C. Nutrition is per 100 g of raw vegetable (USDA, provisional) and prices are in &euro; per kg (MAPA, July 2026). The method is a general suggestion, not a tested recipe.</p>
+    </div>
+    <button class="cg-switch" id="theme" type="button" role="switch" aria-checked="false">
+      <span class="cg-switch__track"><span class="cg-switch__knob">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="currentColor"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg>
+      </span></span><span>Dark mode</span>
+    </button>
+  </header>
+
+  <main id="app"></main>
+  <div class="sr" id="live" role="status" aria-live="polite"></div>
+
+  <section class="notes" aria-labelledby="notes-h">
+    <h2 id="notes-h">Sources and notes</h2>
+    <ul>
+      <li><b>Recipe:</b> the dish type (roast, salad, pan-cooked greens or warm and fresh) is chosen from how each vegetable is usually cooked. Amounts are for 2 servings, in g as bought (the whole product, before trimming), with the edible part in g next to it. Times in min and temperatures in &deg;C are typical values, so adjust to your oven and taste. This is generated cooking guidance, not data.</li>
+      <li><b>Nutrition:</b> approximate amounts per 100 g of raw vegetable, USDA FoodData Central, provisional until Spain's BEDCA food database is imported. The card shows the share of the EU daily reference (Regulation 1169/2011, Annex XIII; fiber uses the EFSA 25 g) in one serving. Cooking changes nutrient amounts, so treat these as a guide. The Nutrient Density Score (0 to 100) is per 100 g of raw vegetable, not per calorie.</li>
+      <li><b>Prices:</b> average Spanish consumer prices in &euro; per kg as bought, July 2026, MAPA panel (Spain's Ministry of Agriculture, Fisheries and Food). Vegetables with a product-group price or an estimate are marked on the card.</li>
+      <li><b>PDF:</b> the card is always drawn in the light theme so it prints well, and is a picture of the page (text can be copied from a hidden text layer). Illustrations come from the Vegetable Chart prototype. Page built with the Cool Graphs design system.</li>
+    </ul>
+  </section>
+</div>

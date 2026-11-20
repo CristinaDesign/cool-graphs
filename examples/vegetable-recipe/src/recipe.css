@@ -1,0 +1,76 @@
+/* Cool Graphs, recipe page. Colours come from tokens only. */
+* { box-sizing: border-box; }
+body { margin: 0; }
+h1, h2, h3, p, ul, ol { margin: 0; }
+.wrap { max-width: 1080px; margin: 0 auto; padding: var(--cg-space-5) max(16px, env(safe-area-inset-right)) var(--cg-space-6) max(16px, env(safe-area-inset-left)); display: grid; gap: var(--cg-space-5); }
+h1 { font-weight: 700; font-size: var(--cg-text-display); line-height: 1.02; letter-spacing: -0.02em; text-wrap: balance; }
+.top { display: flex; justify-content: space-between; align-items: flex-start; gap: var(--cg-space-4); flex-wrap: wrap; }
+.lede { margin-top: var(--cg-space-3); color: var(--cg-color-ink-2); font-size: var(--cg-text-lg); max-width: 62ch; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.screen { display: grid; gap: var(--cg-space-4); }
+.status { display: flex; flex-wrap: wrap; gap: var(--cg-space-3); align-items: center; font-weight: 700; }
+
+/* Vegetable cards */
+.vgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: var(--cg-space-3); }
+.cg-card.veg { padding: var(--cg-space-2); gap: var(--cg-space-1); justify-items: center; min-height: 112px; align-content: center; position: relative; }
+.cg-card.veg .pic { height: 64px; width: 100%; display: flex; align-items: center; justify-content: center; }
+.cg-card.veg img { max-height: 64px; max-width: 92%; object-fit: contain; }
+.cg-card.veg b { font-size: var(--cg-text-sm); line-height: 1.2; }
+.cg-card.veg .num { position: absolute; top: 6px; right: 6px; width: 22px; height: 22px; border-radius: 50%; background: var(--cg-color-ink); color: var(--cg-color-bg); font: 700 13px/22px var(--cg-font-data); display: none; }
+.cg-card.veg[aria-pressed="true"] .num { display: block; }
+.cg-card.veg[aria-pressed="true"] { animation: pick .28s cubic-bezier(.2, .9, .3, 1.3); }
+@keyframes pick { 0% { transform: scale(.94); } 100% { transform: scale(1); } }
+.dot-fallback { width: 48px; height: 48px; border-radius: 50%; border: 1px solid var(--cg-color-ink); }
+
+/* Sticky action bar */
+.bar { position: sticky; bottom: 0; z-index: 5; background: var(--cg-color-bg); border-top: var(--cg-border-width) solid var(--cg-color-line); margin-inline: calc(-1 * max(16px, env(safe-area-inset-left))); padding: var(--cg-space-3) max(16px, env(safe-area-inset-left)) max(var(--cg-space-3), env(safe-area-inset-bottom)); display: flex; gap: var(--cg-space-3); justify-content: center; flex-wrap: wrap; }
+.bar .cg-btn { min-height: 48px; font-size: var(--cg-text-lg); display: inline-flex; align-items: center; justify-content: center; gap: var(--cg-space-2); flex: 1 1 200px; max-width: 420px; }
+
+/* Preview screen */
+.prevhead { display: grid; gap: var(--cg-space-2); }
+.prevhead h2 { font-size: var(--cg-text-title); line-height: 1.2; }
+.prevhead p { color: var(--cg-color-ink-2); }
+.prev { position: relative; width: 100%; max-width: 794px; margin: 0 auto; border: var(--cg-border-width) solid var(--cg-color-border-soft); border-radius: var(--cg-radius-sm); overflow: hidden; background: #fff; }
+.prev .sheet { transform-origin: 0 0; }
+#capture { position: fixed; left: -10000px; top: 0; }
+
+/* The recipe sheet = the PDF page. A4 at 96 dpi = 794 x 1123 px. Always light. */
+.sheet { width: 794px; height: 1123px; overflow: hidden; background: var(--cg-color-bg); color: var(--cg-color-ink); padding: 36px 44px 26px; display: flex; flex-direction: column; gap: 14px; font: 14px/1.4 var(--cg-font-display); }
+.sheet h1 { font-size: 44px; line-height: 1.02; }
+.sheet .kick { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+.sheet .tag { font-size: 18px; color: var(--cg-color-ink-2); margin-top: 8px; }
+.sheet .hero { display: flex; align-items: flex-end; justify-content: center; gap: 22px; background: var(--cg-color-panel); border-radius: var(--cg-radius-lg); padding: 18px 18px 14px; }
+.sheet .hero .one { display: grid; justify-items: center; gap: 4px; text-align: center; min-width: 190px; }
+.sheet .hero .one .pic { height: 112px; display: flex; align-items: flex-end; }
+.sheet .hero img { max-height: 112px; max-width: 220px; object-fit: contain; }
+.sheet .hero b { font-size: 22px; line-height: 1.15; }
+.sheet .hero .sc { font-size: 13px; color: var(--cg-color-ink-2); }
+.sheet .hero .sc i { font: 700 15px var(--cg-font-data); font-style: normal; color: var(--cg-color-ink); }
+.sheet .plus { font: 700 40px/1 var(--cg-font-display); padding-bottom: 50px; }
+.sheet .cols { display: grid; grid-template-columns: 11fr 12fr; gap: 24px; flex: 1 1 auto; min-height: 0; }
+.sheet h2 { font-size: 21px; margin-bottom: 8px; letter-spacing: .2px; }
+.sheet .cg-table table { font-size: 13.5px; }
+.sheet .cg-table th, .sheet .cg-table td { padding: 6px 7px; white-space: normal; }
+.sheet .cg-table td:nth-child(2), .sheet .cg-table td:nth-child(3), .sheet .cg-table td:nth-child(4) { white-space: nowrap; }
+.sheet .cg-table td:nth-child(2) { font-weight: 700; }
+.sheet .cg-table tr:hover td { background: transparent; }
+.sheet .meth { display: flex; flex-direction: column; }
+.sheet .tip { margin-top: auto; background: var(--cg-color-panel); border-radius: var(--cg-radius-sm); padding: 8px 12px; font-size: 13.5px; line-height: 1.35; }
+.sheet .tip b { display: block; font-size: 13px; letter-spacing: .3px; margin-bottom: 2px; }
+.sheet .sub { font: 400 12px var(--cg-font-display); color: var(--cg-color-ink-2); display: block; }
+.sheet ol.steps { list-style: none; padding: 0; display: grid; gap: 9px; counter-reset: s; }
+.sheet ol.steps li { counter-increment: s; display: grid; grid-template-columns: 28px 1fr; gap: 10px; align-items: start; }
+.sheet ol.steps li::before { content: counter(s); width: 26px; height: 26px; border-radius: 50%; background: var(--cg-color-ink); color: var(--cg-color-bg); font: 700 14px/26px var(--cg-font-data); text-align: center; }
+.sheet ol.steps li p { font-size: 14px; line-height: 1.38; }
+.sheet ol.steps .cg-chip { margin-left: 4px; font-size: 12px; padding: 1px 8px; white-space: nowrap; }
+.sheet .nut { display: grid; gap: 7px; }
+.sheet .nut .cg-score { grid-template-columns: 120px minmax(0, 1fr) 52px; }
+.sheet .nutwrap { display: grid; grid-template-columns: 1fr 200px; gap: 26px; align-items: start; }
+.sheet .cost b { font: 700 28px var(--cg-font-data); display: block; line-height: 1.1; }
+.sheet .cost span { font-size: 12px; color: var(--cg-color-ink-2); display: block; }
+.sheet .foot { border-top: 1px solid var(--cg-color-line); padding-top: 8px; font-size: 11px; line-height: 1.35; color: var(--cg-color-ink-2); }
+.sheet .foot b { color: var(--cg-color-ink); }
+
+@media (max-width: 480px) { .bar { gap: var(--cg-space-2); } .bar .cg-btn { flex: 1 1 140px; padding-inline: var(--cg-space-3); font-size: var(--cg-text-md); } }
+@media (max-width: 400px) { .vgrid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .cg-card.veg { min-height: 104px; } }
+@media (prefers-reduced-motion: reduce) { .cg-card.veg[aria-pressed="true"] { animation: none; } }

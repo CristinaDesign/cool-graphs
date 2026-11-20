@@ -2,6 +2,10 @@
 
 What changed in the design system, newest first. Dates are 2026.
 
+## 20 November
+- New example page **Vegetable Recipe** (`examples/vegetable-recipe`): pick two of 27 vegetables, preview and download a one-page A4 recipe card as a PDF. Any pair works (702 ordered pairs tested to fit on one page). Uses only existing tokens, components (Selectable card, Button, Chip, Table, Score bar, Banner) and the Vegetable Chart illustrations. The card is always drawn in the light theme.
+- Added the `arrow_forward` icon to the shared example icons.
+
 ## 17 November
 - Fixed vegetable illustrations showing as empty circles on GitHub Pages: `publish_examples.py` now copies the icons folder next to the example pages.
 

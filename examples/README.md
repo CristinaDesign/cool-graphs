@@ -1,11 +1,12 @@
 # Examples built with Cool Graphs
 
-Two small websites built **only** from the design system in this repo (tokens and components in `src/`). They show how the system is used for real pages, and they follow `DESIGN.md` and the skill in `.claude/skills/cool-graphs-design/`.
+Small websites built **only** from the design system in this repo (tokens and components in `src/`). They show how the system is used for real pages, and they follow `DESIGN.md` and the skill in `.claude/skills/cool-graphs-design/`.
 
 | Example | What it is | Open it |
 |---|---|---|
 | [Vegetable Explorer](vegetable-explorer/README.md) | Cards of 27 vegetables. Select one to see its price, nutrition, fun fact and charts. | `vegetable-explorer/index.html` |
 | [Vegetable Face-off](vegetable-face-off/README.md) | A ten-question game. Four vegetables per question, odd questions, real numbers after each answer. | `vegetable-face-off/index.html` |
+| [Vegetable Recipe](vegetable-recipe/README.md) | Pick two vegetables, preview and download a one-page A4 recipe card as a PDF. | `vegetable-recipe/index.html` |
 
 **To look at one:** download the repo and open its `index.html` in a browser. Each is a single page and needs no install.
 

@@ -5,6 +5,7 @@ import build_common as bc
 root = os.path.dirname(os.path.abspath(__file__))
 pages = [('vegetable-explorer', 'Vegetable Explorer', 'Browse vegetables by price and nutrients.'),
          ('vegetable-face-off', 'Vegetable Face-off', 'A quick game: which vegetable wins?'),
+         ('vegetable-recipe', 'Vegetable Recipe', 'Pick two vegetables, download a one-page recipe PDF.'),
          ('coffee-brew', 'Coffee Brew Guide', 'Step-by-step coffee settings.')]
 out = os.path.join(root, 'docs', 'examples')
 shutil.rmtree(out, ignore_errors=True)
