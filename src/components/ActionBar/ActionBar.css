@@ -1,0 +1,17 @@
+/* Action bar: the main action of a screen, kept visible at the bottom.
+   Sticks to the bottom of the viewport while its page is longer than the screen,
+   and sits in place when the page is short. Respects phone safe areas. */
+.cg-action-bar {
+  position: sticky; bottom: 0; z-index: 5;
+  display: flex; align-items: center; justify-content: center; flex-wrap: wrap;
+  gap: var(--cg-space-2) var(--cg-space-4);
+  background: var(--cg-color-bg);
+  border-top: var(--cg-border-width) solid var(--cg-color-line);
+  margin-inline: calc(-1 * max(16px, env(safe-area-inset-left)));
+  padding: var(--cg-space-3) max(16px, env(safe-area-inset-left)) max(var(--cg-space-3), env(safe-area-inset-bottom));
+}
+/* The main button is big and shares the row with the other controls. */
+.cg-action-bar > .cg-btn { min-height: 48px; flex: 1 1 200px; max-width: 420px; display: inline-flex; align-items: center; justify-content: center; gap: var(--cg-space-2); }
+@media (max-width: 480px) {
+  .cg-action-bar > .cg-btn { flex: 1 1 140px; max-width: none; padding-inline: var(--cg-space-3); }
+}

@@ -17,9 +17,6 @@ h1 { font-weight: 700; font-size: var(--cg-text-display); line-height: 1.05; let
 .head p { margin-top: 6px; color: var(--cg-color-ink-2); max-width: 60ch; }
 .actions { display: flex; gap: var(--cg-space-3); flex-wrap: wrap; align-items: center; }
 /* Sticky Start bar: stays at the bottom of the screen while the pick screen is showing, so Start is never scrolled out of reach */
-.start-bar { position: sticky; bottom: 0; z-index: 5; background: var(--cg-color-bg); border-top: var(--cg-border-width) solid var(--cg-color-line); margin-inline: calc(-1 * max(16px, env(safe-area-inset-left))); padding: var(--cg-space-3) max(16px, env(safe-area-inset-left)) max(var(--cg-space-3), env(safe-area-inset-bottom)); }
-.start-bar .cg-btn { width: 100%; justify-content: center; }
-@media (min-width: 721px) { .start-bar .cg-btn { width: auto; } }
 .cg-btn.big { min-height: 48px; padding-inline: var(--cg-space-5); font-size: var(--cg-text-lg); display: inline-flex; align-items: center; gap: var(--cg-space-2); }
 .cg-btn .cg-icon { margin-inline: calc(var(--cg-space-1) * -1); }
 .cg-btn.sm { min-height: var(--cg-target-min); padding: var(--cg-space-1) var(--cg-space-3); display: inline-flex; align-items: center; gap: var(--cg-space-2); }

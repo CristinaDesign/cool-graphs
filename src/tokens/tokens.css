@@ -41,6 +41,7 @@ body {
   background: var(--cg-color-bg);
   color: var(--cg-color-ink);
   font: var(--cg-text-md)/1.5 var(--cg-font-display);
+  font-variant-numeric: lining-nums tabular-nums;
   transition: background-color var(--cg-duration), color var(--cg-duration);
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }

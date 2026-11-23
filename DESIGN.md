@@ -69,12 +69,17 @@ Non-colour tokens (type, spacing, shape, motion) are in `tokens.css`. Type sizes
 | Tell people something happened or needs attention | **Banner** (error, warning, success, info) | Using colour without the icon and words; stacking more than two at once |
 | Make a label or control easier to recognise | **Icon** | Using an icon alone when its meaning is not obvious |
 | Show a short fact, a count or a label | **Chip** (outline, solid or dashed) | Making it clickable, or using the dashed tone without words that say "provisional" or "estimated" |
+| Keep the main action in reach at the bottom of the screen | **Action bar** (one primary Button, plus a Switch or a secondary Button) | Putting more than one primary Button in it, or navigation links |
 
 **Icons:** 20 Material Design icons (outlined), 24px by default, and 16 or 32px when needed. An icon next to words that say the same thing is hidden from screen readers. An icon that stands alone must have a text label. A clickable icon-only control must still be at least 30px wide and tall.
 
 **Banners:** the icon and the words are always shown together. Say what happened and what to do next, in plain language. Errors interrupt screen readers, the others do not. Use **info** for neutral notes that are not a status.
 
 **Chips:** a small pill of text, not clickable. Outline is for a fact or a count ("10 questions"), solid for a label that stands out ("Try this"), dashed for provisional or estimated information, like the dashed ring on estimated chart points. The words always say what it is. A clickable filter would need a separate component, not built yet.
+
+**Numerals:** all numbers use lining, equal-width digits (`font-variant-numeric: lining-nums tabular-nums`, set once on `body`), so figures line up and never look like they sit at different heights.
+
+**Action bar:** a bar fixed to the bottom of the screen that holds the one main action of the page ("Start espresso", "Next", "Generate recipe") so it is never hidden below the fold on a phone. It may also hold a related control, such as the "Move on by itself" Switch. It has a top line, the page background, and respects the phone safe area. On a phone the main button takes the full width and the other controls sit under it. Give it a short accessible label.
 
 **Touch targets:** all of these meet the 30px minimum. The Segmented control and Disclosure were raised to meet it.
 

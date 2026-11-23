@@ -67,6 +67,25 @@ h1 { font-weight: 700; font-size: 32px; line-height: 1.15; }
 @keyframes spark { from { transform: translate(-50%, -50%) scale(1); opacity: 1; } to { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(.2); opacity: 0; } }
 .pick .num, .stats b, .score-big { font-variant-numeric: tabular-nums; }
 .actions { align-items: center; }
+#nx[hidden] { display: none; }
+.sw-label { white-space: nowrap; }
+/* Phone: compact header and cards so the question and all four options fit on one screen. */
+@media (max-width: 480px) {
+  body:not(.landing) .wrap { padding-top: var(--cg-space-3); gap: var(--cg-space-3); }
+  body:not(.landing) .top { flex-wrap: nowrap; align-items: center; }
+  body:not(.landing) h1 { font-size: 22px; }
+  body:not(.landing) .lede { display: none; }
+  body:not(.landing) .sw-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .screen { gap: var(--cg-space-3); }
+  .stats { gap: var(--cg-space-3); flex-wrap: nowrap; font-size: 13px; }
+  .stats b { font-size: 20px; }
+  .q h2 { font-size: 20px; }
+  .q p { font-size: 14px; margin-top: 2px; }
+  .pick { min-height: 0; gap: var(--cg-space-1); padding: var(--cg-space-2) 6px; }
+  .pick .pic { height: 56px; }
+  .pick img { max-height: 56px; }
+  .pick .reveal { min-height: 0; }
+}
 
 /* Motion: only when the person has not asked for less */
 @media (prefers-reduced-motion: no-preference) {

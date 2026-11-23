@@ -401,7 +401,7 @@
       '<div class="vgrid" role="group" aria-label="Vegetables">' +
       sorted.map(function (v) {
         return '<button type="button" class="cg-card veg" data-s="' + v.slug + '" aria-pressed="false"><span class="num" aria-hidden="true"></span><span class="pic">' + pic(v) + '</span><b>' + v.name + '</b></button>';
-      }).join('') + '</div><div class="bar" id="bar"></div></section>';
+      }).join('') + '</div><div class="cg-action-bar" id="bar" role="group" aria-label="Generate recipe"></div></section>';
     app.innerHTML = h;
     app.querySelectorAll('.veg').forEach(function (b) {
       b.addEventListener('click', function () {
@@ -444,7 +444,7 @@
     app.innerHTML = '<section class="screen" aria-labelledby="h-prev"><div class="prevhead"><h2 id="h-prev" tabindex="-1">' + r.title + '</h2>' +
       '<p>Preview of your one-page A4 recipe card. The PDF looks exactly like this, always in the light theme. On a phone, pinch to zoom the preview.</p></div><div id="msg"></div>' +
       '<div class="prev" role="img" aria-label="Preview of the recipe card for ' + r.title + '">' + sheetHTML(r) + '</div>' +
-      '<div class="bar"><button type="button" class="cg-btn cg-btn--secondary" id="back">' + 'Change vegetables</button>' +
+      '<div class="cg-action-bar" role="group" aria-label="Recipe actions"><button type="button" class="cg-btn cg-btn--secondary" id="back">' + 'Change vegetables</button>' +
       '<button type="button" class="cg-btn cg-btn--primary" id="dl">Download PDF ' + icon('arrow_forward') + '</button></div></section>';
     fitSheet(document.querySelector('.prev .sheet')); fitPreview();
     document.getElementById('back').addEventListener('click', function () { state.screen = 'pick'; render(true); });

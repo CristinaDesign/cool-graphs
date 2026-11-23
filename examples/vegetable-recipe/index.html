@@ -234,6 +234,7 @@ body {
   background: var(--cg-color-bg);
   color: var(--cg-color-ink);
   font: var(--cg-text-md)/1.5 var(--cg-font-display);
+  font-variant-numeric: lining-nums tabular-nums;
   transition: background-color var(--cg-duration), color var(--cg-duration);
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
@@ -340,6 +341,23 @@ body {
   font-size: 12px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase; padding: 2px 10px; }
 /* Dashed: provisional or estimated, matching the dashed ring used on estimated chart points. */
 .cg-chip--dashed { background: transparent; border: 1px dashed var(--cg-color-ink); }
+/* Action bar: the main action of a screen, kept visible at the bottom.
+   Sticks to the bottom of the viewport while its page is longer than the screen,
+   and sits in place when the page is short. Respects phone safe areas. */
+.cg-action-bar {
+  position: sticky; bottom: 0; z-index: 5;
+  display: flex; align-items: center; justify-content: center; flex-wrap: wrap;
+  gap: var(--cg-space-2) var(--cg-space-4);
+  background: var(--cg-color-bg);
+  border-top: var(--cg-border-width) solid var(--cg-color-line);
+  margin-inline: calc(-1 * max(16px, env(safe-area-inset-left)));
+  padding: var(--cg-space-3) max(16px, env(safe-area-inset-left)) max(var(--cg-space-3), env(safe-area-inset-bottom));
+}
+/* The main button is big and shares the row with the other controls. */
+.cg-action-bar > .cg-btn { min-height: 48px; flex: 1 1 200px; max-width: 420px; display: inline-flex; align-items: center; justify-content: center; gap: var(--cg-space-2); }
+@media (max-width: 480px) {
+  .cg-action-bar > .cg-btn { flex: 1 1 140px; max-width: none; padding-inline: var(--cg-space-3); }
+}
 
 /* Small helpers the example pages need on top of the design system. */
 .cg-switch__knob .moon, .cg-switch[aria-checked="true"] .cg-switch__knob .sun { display: none; }
@@ -439,8 +457,6 @@ h1 { font-weight: 700; font-size: var(--cg-text-display); line-height: 1.02; let
 .dot-fallback { width: 48px; height: 48px; border-radius: 50%; border: 1px solid var(--cg-color-ink); }
 
 /* Sticky action bar */
-.bar { position: sticky; bottom: 0; z-index: 5; background: var(--cg-color-bg); border-top: var(--cg-border-width) solid var(--cg-color-line); margin-inline: calc(-1 * max(16px, env(safe-area-inset-left))); padding: var(--cg-space-3) max(16px, env(safe-area-inset-left)) max(var(--cg-space-3), env(safe-area-inset-bottom)); display: flex; gap: var(--cg-space-3); justify-content: center; flex-wrap: wrap; }
-.bar .cg-btn { min-height: 48px; font-size: var(--cg-text-lg); display: inline-flex; align-items: center; justify-content: center; gap: var(--cg-space-2); flex: 1 1 200px; max-width: 420px; }
 
 /* Preview screen */
 .prevhead { display: grid; gap: var(--cg-space-2); }
@@ -487,7 +503,7 @@ h1 { font-weight: 700; font-size: var(--cg-text-display); line-height: 1.02; let
 .sheet .foot { border-top: 1px solid var(--cg-color-line); padding-top: 8px; font-size: 11px; line-height: 1.35; color: var(--cg-color-ink-2); }
 .sheet .foot b { color: var(--cg-color-ink); }
 
-@media (max-width: 480px) { .bar { gap: var(--cg-space-2); } .bar .cg-btn { flex: 1 1 140px; padding-inline: var(--cg-space-3); font-size: var(--cg-text-md); } }
+
 @media (max-width: 400px) { .vgrid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .cg-card.veg { min-height: 104px; } }
 @media (prefers-reduced-motion: reduce) { .cg-card.veg[aria-pressed="true"] { animation: none; } }
 
@@ -985,7 +1001,7 @@ h1 { font-weight: 700; font-size: var(--cg-text-display); line-height: 1.02; let
       '<div class="vgrid" role="group" aria-label="Vegetables">' +
       sorted.map(function (v) {
         return '<button type="button" class="cg-card veg" data-s="' + v.slug + '" aria-pressed="false"><span class="num" aria-hidden="true"></span><span class="pic">' + pic(v) + '</span><b>' + v.name + '</b></button>';
-      }).join('') + '</div><div class="bar" id="bar"></div></section>';
+      }).join('') + '</div><div class="cg-action-bar" id="bar" role="group" aria-label="Generate recipe"></div></section>';
     app.innerHTML = h;
     app.querySelectorAll('.veg').forEach(function (b) {
       b.addEventListener('click', function () {
@@ -1028,7 +1044,7 @@ h1 { font-weight: 700; font-size: var(--cg-text-display); line-height: 1.02; let
     app.innerHTML = '<section class="screen" aria-labelledby="h-prev"><div class="prevhead"><h2 id="h-prev" tabindex="-1">' + r.title + '</h2>' +
       '<p>Preview of your one-page A4 recipe card. The PDF looks exactly like this, always in the light theme. On a phone, pinch to zoom the preview.</p></div><div id="msg"></div>' +
       '<div class="prev" role="img" aria-label="Preview of the recipe card for ' + r.title + '">' + sheetHTML(r) + '</div>' +
-      '<div class="bar"><button type="button" class="cg-btn cg-btn--secondary" id="back">' + 'Change vegetables</button>' +
+      '<div class="cg-action-bar" role="group" aria-label="Recipe actions"><button type="button" class="cg-btn cg-btn--secondary" id="back">' + 'Change vegetables</button>' +
       '<button type="button" class="cg-btn cg-btn--primary" id="dl">Download PDF ' + icon('arrow_forward') + '</button></div></section>';
     fitSheet(document.querySelector('.prev .sheet')); fitPreview();
     document.getElementById('back').addEventListener('click', function () { state.screen = 'pick'; render(true); });

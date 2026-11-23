@@ -76,6 +76,7 @@ Example: a page where clicking an illustration of a vegetable shows information 
 - A **Legend marker** wherever a value is an estimate, and a short note saying why.
 - Source and date for the data, always visible.
 - Extra detail inside a **Disclosure**.
+- **Action bar** for the main action of any page that can scroll on a phone (Start, Next, Generate): one primary Button, plus at most a Switch or a secondary Button.
 - **Chips** for short facts and counts near the top (for example "10 questions"); use the dashed Chip, with words, for provisional data.
 - A **Banner** if information fails to load, saying what happened and what to do.
 

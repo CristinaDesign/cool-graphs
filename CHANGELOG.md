@@ -2,6 +2,11 @@
 
 What changed in the design system, newest first. Dates are 2026.
 
+## 23 November
+- **New component: Action bar.** A bar fixed to the bottom of the screen with the one main action of a page (plus an optional Switch or secondary Button), so it is never hidden below the fold on a phone. Safe-area aware, 48 px button. Replaces the one-off sticky bars on the Coffee Brew Guide and Vegetable Recipe pages, and is now used for "Next question" and the auto-advance switch in the Vegetable Face-off. Documented in `DESIGN.md`, the Storybook Introduction and the skill.
+- **Vegetable Face-off on a phone:** after Start the header is compact (title on one line, the dark-mode switch in the top corner with its label kept for screen readers), the stats sit on one line and the cards are shorter, so the question and all four options fit on one screen.
+- **Numerals:** all numbers use lining, equal-width digits (set once on `body`).
+
 ## 21 November
 - **Vegetable Recipe** is now much more varied: 12 dish types (tray bake, salad, soup, stir-fry, tortilla or frittata, pasta, curry, gratin, stuffed vegetables, fritters, pan-cooked greens, warm and fresh) with suggested extras such as chicken, chorizo, prawns, salmon, tofu, eggs, chickpeas, feta, yoghurt, rice or pasta, and a third vegetable (onion) where it makes sense. The same pair always gives the same recipe, in any order. The nutrition and cost on the card still count only the two chosen vegetables, and the card says so. Long recipes shrink their text slightly to stay on one page (tested on all 351 pairs).
 

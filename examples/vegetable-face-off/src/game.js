@@ -198,7 +198,7 @@
     game.innerHTML = '<div class="screen">' + statsHTML() +
       '<div class="q"><h2 id="q-title" tabindex="-1">' + K.title + '</h2><p>' + K.help + '</p></div>' +
       '<div class="pair" role="group" aria-labelledby="q-title">' + q.opts.map(cardHTML).join('') + '</div>' +
-      '<div id="fb"></div><div class="actions" id="nx"></div></div>';
+      '<div id="fb"></div><div class="cg-action-bar" id="nx" role="group" aria-label="Next question" hidden></div></div>';
     game.querySelectorAll('.pick').forEach(function (b) { b.addEventListener('click', function () { answer(parseInt(b.getAttribute('data-i'), 10)); }); });
   }
 
@@ -223,7 +223,7 @@
       : banner('error', 'error', 'Not this time', q.win.name + ' wins with ' + K.text(q.win) + '. You picked ' + chosen.name + ' (' + K.text(chosen) + ', ' + ord(q.rank.indexOf(chosen) + 1) + '). Order: ' + q.rank.map(function (v) { return v.name; }).join(', ') + '.');
     var fb = document.getElementById('fb'); fb.innerHTML = msg; fb.classList.add('in');
     var last = state.i >= ROUNDS;
-    document.getElementById('nx').innerHTML = '<button type="button" class="cg-btn cg-btn--primary big" id="next"><span>' + (last ? 'See my results' : 'Next question') + '</span></button>' + autoSwitch();
+    var nx = document.getElementById('nx'); nx.hidden = false; nx.innerHTML = '<button type="button" class="cg-btn cg-btn--primary big" id="next"><span>' + (last ? 'See my results' : 'Next question') + '</span></button>' + autoSwitch();
     var nb = document.getElementById('next'); nb.addEventListener('click', last ? renderResults : nextQ); nb.focus({ preventScroll: true }); bindAuto();
     var sc = document.getElementById('st-score'), st = document.getElementById('st-streak'); sc.textContent = state.score; st.textContent = state.streak;
     if (ok) { bump(sc); if (state.streak > 1) bump(st); }

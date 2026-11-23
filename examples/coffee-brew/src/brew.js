@@ -85,7 +85,7 @@
         '<span class="line">' + c.dose + ' g · grind ' + c.grind + ' · ' + c.yield + ' ml</span></span></button>';
     });
     h += '</div><div class="settings" id="settings"></div>' +
-      '<div class="actions start-bar"><button type="button" class="cg-btn cg-btn--primary big" id="start"><span id="start-label">Pick a coffee</span> ' + icon('arrow_forward') + '</button></div></section>';
+      '<div class="cg-action-bar" role="group" aria-label="Start brewing"><button type="button" class="cg-btn cg-btn--primary big" id="start"><span id="start-label">Pick a coffee</span> ' + icon('arrow_forward') + '</button></div></section>';
     app.innerHTML = h;
     updatePick();
     app.querySelectorAll('.coffee').forEach(function (b) {

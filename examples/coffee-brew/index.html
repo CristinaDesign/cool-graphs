@@ -182,6 +182,7 @@
   --cg-card-text: var(--cg-color-ink);
   --cg-card-border: var(--cg-color-ink);
   --cg-card-border-soft: var(--cg-color-border-soft);
+  --cg-card-border-unselected: var(--cg-color-control-off);
   --cg-card-border-selected: var(--cg-color-ink);
   --cg-card-bg-selected: var(--cg-color-panel);
   /* Switch */
@@ -233,6 +234,7 @@ body {
   background: var(--cg-color-bg);
   color: var(--cg-color-ink);
   font: var(--cg-text-md)/1.5 var(--cg-font-display);
+  font-variant-numeric: lining-nums tabular-nums;
   transition: background-color var(--cg-duration), color var(--cg-duration);
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
@@ -279,10 +281,13 @@ body {
 .cg-select:focus-visible { outline: var(--cg-focus-ring); outline-offset: 3px; }
 .cg-select:disabled { opacity: .4; cursor: not-allowed; }
 .cg-card { font: inherit; text-align: center; cursor: pointer; background: transparent; color: var(--cg-card-text);
-  border: var(--cg-border-width) solid var(--cg-card-border); border-radius: var(--cg-radius-sm); padding: var(--cg-space-3) 14px;
-  display: grid; gap: 6px; align-content: start; width: 100%; opacity: .42; transition: opacity .2s, background .2s; }
-.cg-card:hover { opacity: .75; }
-.cg-card[aria-pressed="true"] { background: var(--cg-card-bg-selected); border-color: var(--cg-card-border-selected); opacity: 1; }
+  border: var(--cg-border-width) solid var(--cg-card-border-unselected); border-radius: var(--cg-radius-sm); padding: var(--cg-space-3) 14px;
+  display: grid; gap: 6px; align-content: start; width: 100%; position: relative; transition: border-color .2s, background .2s, box-shadow .2s; }
+.cg-card:hover { border-color: var(--cg-card-border); }
+/* Selected = thicker border (2px + 2px inner ring, no layout shift), filled background and a check mark. Not carried by colour alone. */
+.cg-card[aria-pressed="true"] { background: var(--cg-card-bg-selected); border-color: var(--cg-card-border-selected); box-shadow: inset 0 0 0 2px var(--cg-card-border-selected); }
+.cg-card[aria-pressed="true"]::after { content: ""; position: absolute; top: 8px; right: 8px; width: 20px; height: 20px; border-radius: 50%; background: var(--cg-card-border-selected); }
+.cg-card[aria-pressed="true"]::before { content: ""; position: absolute; top: 13px; right: 15px; width: 5px; height: 9px; border: solid var(--cg-card-bg-selected); border-width: 0 2px 2px 0; transform: rotate(45deg); z-index: 1; }
 .cg-card:focus-visible { outline: var(--cg-focus-ring); outline-offset: 3px; }
 .cg-card b { font-size: var(--cg-text-md); letter-spacing: .25px; }
 .cg-card span { font-size: 13px; line-height: 20px; letter-spacing: .25px; }
@@ -336,6 +341,23 @@ body {
   font-size: 12px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase; padding: 2px 10px; }
 /* Dashed: provisional or estimated, matching the dashed ring used on estimated chart points. */
 .cg-chip--dashed { background: transparent; border: 1px dashed var(--cg-color-ink); }
+/* Action bar: the main action of a screen, kept visible at the bottom.
+   Sticks to the bottom of the viewport while its page is longer than the screen,
+   and sits in place when the page is short. Respects phone safe areas. */
+.cg-action-bar {
+  position: sticky; bottom: 0; z-index: 5;
+  display: flex; align-items: center; justify-content: center; flex-wrap: wrap;
+  gap: var(--cg-space-2) var(--cg-space-4);
+  background: var(--cg-color-bg);
+  border-top: var(--cg-border-width) solid var(--cg-color-line);
+  margin-inline: calc(-1 * max(16px, env(safe-area-inset-left)));
+  padding: var(--cg-space-3) max(16px, env(safe-area-inset-left)) max(var(--cg-space-3), env(safe-area-inset-bottom));
+}
+/* The main button is big and shares the row with the other controls. */
+.cg-action-bar > .cg-btn { min-height: 48px; flex: 1 1 200px; max-width: 420px; display: inline-flex; align-items: center; justify-content: center; gap: var(--cg-space-2); }
+@media (max-width: 480px) {
+  .cg-action-bar > .cg-btn { flex: 1 1 140px; max-width: none; padding-inline: var(--cg-space-3); }
+}
 
 /* Small helpers the example pages need on top of the design system. */
 .cg-switch__knob .moon, .cg-switch[aria-checked="true"] .cg-switch__knob .sun { display: none; }
@@ -362,9 +384,6 @@ h1 { font-weight: 700; font-size: var(--cg-text-display); line-height: 1.05; let
 .head p { margin-top: 6px; color: var(--cg-color-ink-2); max-width: 60ch; }
 .actions { display: flex; gap: var(--cg-space-3); flex-wrap: wrap; align-items: center; }
 /* Sticky Start bar: stays at the bottom of the screen while the pick screen is showing, so Start is never scrolled out of reach */
-.start-bar { position: sticky; bottom: 0; z-index: 5; background: var(--cg-color-bg); border-top: var(--cg-border-width) solid var(--cg-color-line); margin-inline: calc(-1 * max(16px, env(safe-area-inset-left))); padding: var(--cg-space-3) max(16px, env(safe-area-inset-left)) max(var(--cg-space-3), env(safe-area-inset-bottom)); }
-.start-bar .cg-btn { width: 100%; justify-content: center; }
-@media (min-width: 721px) { .start-bar .cg-btn { width: auto; } }
 .cg-btn.big { min-height: 48px; padding-inline: var(--cg-space-5); font-size: var(--cg-text-lg); display: inline-flex; align-items: center; gap: var(--cg-space-2); }
 .cg-btn .cg-icon { margin-inline: calc(var(--cg-space-1) * -1); }
 .cg-btn.sm { min-height: var(--cg-target-min); padding: var(--cg-space-1) var(--cg-space-3); display: inline-flex; align-items: center; gap: var(--cg-space-2); }
@@ -643,7 +662,7 @@ h1 { font-weight: 700; font-size: var(--cg-text-display); line-height: 1.05; let
         '<span class="line">' + c.dose + ' g \u00b7 grind ' + c.grind + ' \u00b7 ' + c.yield + ' ml</span></span></button>';
     });
     h += '</div><div class="settings" id="settings"></div>' +
-      '<div class="actions start-bar"><button type="button" class="cg-btn cg-btn--primary big" id="start"><span id="start-label">Pick a coffee</span> ' + icon('arrow_forward') + '</button></div></section>';
+      '<div class="cg-action-bar" role="group" aria-label="Start brewing"><button type="button" class="cg-btn cg-btn--primary big" id="start"><span id="start-label">Pick a coffee</span> ' + icon('arrow_forward') + '</button></div></section>';
     app.innerHTML = h;
     updatePick();
     app.querySelectorAll('.coffee').forEach(function (b) {

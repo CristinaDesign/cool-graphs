@@ -49,6 +49,56 @@
       ],
       "import": "import { Tokens } from 'cool-graphs';"
     },
+    "components-action-bar": {
+      "id": "components-action-bar",
+      "name": "ActionBar",
+      "path": "./src/components/ActionBar/ActionBar.stories.tsx",
+      "jsDocTags": {},
+      "description": "A bar fixed to the bottom of the screen that keeps the main action in reach, so nobody has to scroll to find it.\n Put exactly one primary Button in it, plus at most one or two related controls (a Switch, a secondary Button).\n It sticks while the page is longer than the screen, and respects the safe area on phones.",
+      "reactDocgen": {
+        "description": "A bar fixed to the bottom of the screen that keeps the main action in reach, so nobody has to scroll to find it.\n Put exactly one primary Button in it, plus at most one or two related controls (a Switch, a secondary Button).\n It sticks while the page is longer than the screen, and respects the safe area on phones.",
+        "methods": [],
+        "displayName": "ActionBar",
+        "definedInFile": "/home/claude/vegetablecharts/src/components/ActionBar/ActionBar.tsx",
+        "actualName": "ActionBar",
+        "exportName": "ActionBar",
+        "props": {
+          "label": {
+            "required": true,
+            "tsType": {
+              "name": "string"
+            },
+            "description": "Accessible name for the group, for example \"Next question\". Screen readers read it when focus enters the bar."
+          },
+          "children": {
+            "required": true,
+            "tsType": {
+              "name": "ReactReactNode",
+              "raw": "React.ReactNode"
+            },
+            "description": "One primary Button first, then optional related controls such as a Switch or a secondary Button."
+          }
+        }
+      },
+      "stories": [
+        {
+          "id": "components-action-bar--button-only",
+          "name": "Button Only",
+          "snippet": "const ButtonOnly = (a) => (\n  <Page><ActionBar {...a} label=\"Brew\"><Button>Start espresso</Button></ActionBar></Page>);"
+        },
+        {
+          "id": "components-action-bar--with-switch",
+          "name": "With Switch",
+          "snippet": "const WithSwitch = (a) => {\n  const [on, setOn] = useState(true)\n  return <Page><ActionBar {...a}>\n    <Button>Next</Button>\n    <Switch label=\"Move on by itself after 5 seconds\" checked={on} onChange={setOn} />\n  </ActionBar></Page>\n};"
+        },
+        {
+          "id": "components-action-bar--two-buttons",
+          "name": "Two Buttons",
+          "snippet": "const TwoButtons = (a) => (\n  <Page><ActionBar {...a} label=\"Recipe\">\n    <Button><Icon name=\"download\" size={20} /> Download PDF</Button>\n    <Button variant=\"secondary\">Preview</Button>\n  </ActionBar></Page>);"
+        }
+      ],
+      "import": "import { ActionBar, Button, Icon, Switch } from 'cool-graphs';"
+    },
     "components-banner": {
       "id": "components-banner",
       "name": "Banner",
@@ -1150,6 +1200,6 @@
   },
   "meta": {
     "docgen": "react-docgen",
-    "durationMs": 332
+    "durationMs": 384
   }
 }

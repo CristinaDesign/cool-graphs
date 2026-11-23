@@ -7,7 +7,7 @@ SRC = os.path.join(HERE, '..', 'src')
 read = lambda p: open(p, encoding='utf-8').read()
 
 COMPONENTS = ['Switch', 'SegmentedControl', 'Button', 'Select', 'SelectableCard', 'Disclosure', 'Table',
-              'LegendMarker', 'ScoreBar', 'Icon', 'Banner', 'Chip']
+              'LegendMarker', 'ScoreBar', 'Icon', 'Banner', 'Chip', 'ActionBar']
 
 def design_system_css():
     """Tokens (three colour layers + type, space, shape) and every component's CSS, read straight from ../src."""

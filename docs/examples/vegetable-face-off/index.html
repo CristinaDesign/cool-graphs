@@ -184,6 +184,7 @@
   --cg-card-text: var(--cg-color-ink);
   --cg-card-border: var(--cg-color-ink);
   --cg-card-border-soft: var(--cg-color-border-soft);
+  --cg-card-border-unselected: var(--cg-color-control-off);
   --cg-card-border-selected: var(--cg-color-ink);
   --cg-card-bg-selected: var(--cg-color-panel);
   /* Switch */
@@ -210,6 +211,7 @@
   --cg-text-lg: 18px;
   --cg-text-xl: 20px;
   --cg-text-title: 24px;
+  --cg-text-display: 56px; /* one big headline per page (landing or intro); 40px on phones */
 
   /* Shape, spacing, motion */
   --cg-radius-sm: 8px;
@@ -234,9 +236,14 @@ body {
   background: var(--cg-color-bg);
   color: var(--cg-color-ink);
   font: var(--cg-text-md)/1.5 var(--cg-font-display);
+  font-variant-numeric: lining-nums tabular-nums;
   transition: background-color var(--cg-duration), color var(--cg-duration);
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+@media (max-width: 480px) {
+  :root { --cg-text-display: 40px; }
+}
 
 .cg-switch { display: inline-flex; align-items: center; gap: 10px; background: none; border: 0; padding: var(--cg-space-1);
   cursor: pointer; font: 500 var(--cg-text-sm) var(--cg-font-display); color: var(--cg-color-ink-2); }
@@ -276,10 +283,13 @@ body {
 .cg-select:focus-visible { outline: var(--cg-focus-ring); outline-offset: 3px; }
 .cg-select:disabled { opacity: .4; cursor: not-allowed; }
 .cg-card { font: inherit; text-align: center; cursor: pointer; background: transparent; color: var(--cg-card-text);
-  border: var(--cg-border-width) solid var(--cg-card-border); border-radius: var(--cg-radius-sm); padding: var(--cg-space-3) 14px;
-  display: grid; gap: 6px; align-content: start; width: 100%; opacity: .42; transition: opacity .2s, background .2s; }
-.cg-card:hover { opacity: .75; }
-.cg-card[aria-pressed="true"] { background: var(--cg-card-bg-selected); border-color: var(--cg-card-border-selected); opacity: 1; }
+  border: var(--cg-border-width) solid var(--cg-card-border-unselected); border-radius: var(--cg-radius-sm); padding: var(--cg-space-3) 14px;
+  display: grid; gap: 6px; align-content: start; width: 100%; position: relative; transition: border-color .2s, background .2s, box-shadow .2s; }
+.cg-card:hover { border-color: var(--cg-card-border); }
+/* Selected = thicker border (2px + 2px inner ring, no layout shift), filled background and a check mark. Not carried by colour alone. */
+.cg-card[aria-pressed="true"] { background: var(--cg-card-bg-selected); border-color: var(--cg-card-border-selected); box-shadow: inset 0 0 0 2px var(--cg-card-border-selected); }
+.cg-card[aria-pressed="true"]::after { content: ""; position: absolute; top: 8px; right: 8px; width: 20px; height: 20px; border-radius: 50%; background: var(--cg-card-border-selected); }
+.cg-card[aria-pressed="true"]::before { content: ""; position: absolute; top: 13px; right: 15px; width: 5px; height: 9px; border: solid var(--cg-card-bg-selected); border-width: 0 2px 2px 0; transform: rotate(45deg); z-index: 1; }
 .cg-card:focus-visible { outline: var(--cg-focus-ring); outline-offset: 3px; }
 .cg-card b { font-size: var(--cg-text-md); letter-spacing: .25px; }
 .cg-card span { font-size: 13px; line-height: 20px; letter-spacing: .25px; }
@@ -333,6 +343,23 @@ body {
   font-size: 12px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase; padding: 2px 10px; }
 /* Dashed: provisional or estimated, matching the dashed ring used on estimated chart points. */
 .cg-chip--dashed { background: transparent; border: 1px dashed var(--cg-color-ink); }
+/* Action bar: the main action of a screen, kept visible at the bottom.
+   Sticks to the bottom of the viewport while its page is longer than the screen,
+   and sits in place when the page is short. Respects phone safe areas. */
+.cg-action-bar {
+  position: sticky; bottom: 0; z-index: 5;
+  display: flex; align-items: center; justify-content: center; flex-wrap: wrap;
+  gap: var(--cg-space-2) var(--cg-space-4);
+  background: var(--cg-color-bg);
+  border-top: var(--cg-border-width) solid var(--cg-color-line);
+  margin-inline: calc(-1 * max(16px, env(safe-area-inset-left)));
+  padding: var(--cg-space-3) max(16px, env(safe-area-inset-left)) max(var(--cg-space-3), env(safe-area-inset-bottom));
+}
+/* The main button is big and shares the row with the other controls. */
+.cg-action-bar > .cg-btn { min-height: 48px; flex: 1 1 200px; max-width: 420px; display: inline-flex; align-items: center; justify-content: center; gap: var(--cg-space-2); }
+@media (max-width: 480px) {
+  .cg-action-bar > .cg-btn { flex: 1 1 140px; max-width: none; padding-inline: var(--cg-space-3); }
+}
 
 /* Small helpers the example pages need on top of the design system. */
 .cg-switch__knob .moon, .cg-switch[aria-checked="true"] .cg-switch__knob .sun { display: none; }
@@ -409,6 +436,25 @@ h1 { font-weight: 700; font-size: 32px; line-height: 1.15; }
 @keyframes spark { from { transform: translate(-50%, -50%) scale(1); opacity: 1; } to { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(.2); opacity: 0; } }
 .pick .num, .stats b, .score-big { font-variant-numeric: tabular-nums; }
 .actions { align-items: center; }
+#nx[hidden] { display: none; }
+.sw-label { white-space: nowrap; }
+/* Phone: compact header and cards so the question and all four options fit on one screen. */
+@media (max-width: 480px) {
+  body:not(.landing) .wrap { padding-top: var(--cg-space-3); gap: var(--cg-space-3); }
+  body:not(.landing) .top { flex-wrap: nowrap; align-items: center; }
+  body:not(.landing) h1 { font-size: 22px; }
+  body:not(.landing) .lede { display: none; }
+  body:not(.landing) .sw-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .screen { gap: var(--cg-space-3); }
+  .stats { gap: var(--cg-space-3); flex-wrap: nowrap; font-size: 13px; }
+  .stats b { font-size: 20px; }
+  .q h2 { font-size: 20px; }
+  .q p { font-size: 14px; margin-top: 2px; }
+  .pick { min-height: 0; gap: var(--cg-space-1); padding: var(--cg-space-2) 6px; }
+  .pick .pic { height: 56px; }
+  .pick img { max-height: 56px; }
+  .pick .reveal { min-height: 0; }
+}
 
 /* Motion: only when the person has not asked for less */
 @media (prefers-reduced-motion: no-preference) {
@@ -497,7 +543,7 @@ body.landing .wrap { max-width: 940px; }
       <span class="cg-switch__track"><span class="cg-switch__knob">
         <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg>
         <svg class="moon" viewBox="0 0 24 24" fill="currentColor"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg>
-      </span></span><span>Dark mode</span>
+      </span></span><span class="sw-label">Dark mode</span>
     </button>
   </header>
 
@@ -520,7 +566,7 @@ body.landing .wrap { max-width: 940px; }
 <script>
 (function () {
   var root = document.documentElement;
-  var ICONS = {"warning": ["M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"], "error": ["M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"], "close": ["M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"], "info": ["M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"], "check_circle": ["M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm4.59-12.42L10 14.17l-2.59-2.58L6 13l4 4 8-8z"]};
+  var ICONS = {"warning": ["M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"], "error": ["M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"], "close": ["M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"], "info": ["M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"], "check_circle": ["M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm4.59-12.42L10 14.17l-2.59-2.58L6 13l4 4 8-8z"], "arrow_forward": ["M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"]};
   function icon(n, size) { size = size || 24; return '<svg class="cg-icon" width="' + size + '" height="' + size + '" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">' + ICONS[n].map(function (d) { return '<path d="' + d + '"/>'; }).join('') + '</svg>'; }
 
   /* ---------- Data (from the Vegetable Chart prototype) ---------- */
@@ -777,7 +823,7 @@ body.landing .wrap { max-width: 940px; }
     game.innerHTML = '<div class="screen">' + statsHTML() +
       '<div class="q"><h2 id="q-title" tabindex="-1">' + K.title + '</h2><p>' + K.help + '</p></div>' +
       '<div class="pair" role="group" aria-labelledby="q-title">' + q.opts.map(cardHTML).join('') + '</div>' +
-      '<div id="fb"></div><div class="actions" id="nx"></div></div>';
+      '<div id="fb"></div><div class="cg-action-bar" id="nx" role="group" aria-label="Next question" hidden></div></div>';
     game.querySelectorAll('.pick').forEach(function (b) { b.addEventListener('click', function () { answer(parseInt(b.getAttribute('data-i'), 10)); }); });
   }
 
@@ -802,7 +848,7 @@ body.landing .wrap { max-width: 940px; }
       : banner('error', 'error', 'Not this time', q.win.name + ' wins with ' + K.text(q.win) + '. You picked ' + chosen.name + ' (' + K.text(chosen) + ', ' + ord(q.rank.indexOf(chosen) + 1) + '). Order: ' + q.rank.map(function (v) { return v.name; }).join(', ') + '.');
     var fb = document.getElementById('fb'); fb.innerHTML = msg; fb.classList.add('in');
     var last = state.i >= ROUNDS;
-    document.getElementById('nx').innerHTML = '<button type="button" class="cg-btn cg-btn--primary big" id="next"><span>' + (last ? 'See my results' : 'Next question') + '</span></button>' + autoSwitch();
+    var nx = document.getElementById('nx'); nx.hidden = false; nx.innerHTML = '<button type="button" class="cg-btn cg-btn--primary big" id="next"><span>' + (last ? 'See my results' : 'Next question') + '</span></button>' + autoSwitch();
     var nb = document.getElementById('next'); nb.addEventListener('click', last ? renderResults : nextQ); nb.focus({ preventScroll: true }); bindAuto();
     var sc = document.getElementById('st-score'), st = document.getElementById('st-streak'); sc.textContent = state.score; st.textContent = state.streak;
     if (ok) { bump(sc); if (state.streak > 1) bump(st); }
