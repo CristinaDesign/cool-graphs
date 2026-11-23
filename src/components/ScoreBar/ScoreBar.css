@@ -1,4 +1,4 @@
 .cg-score { display: grid; grid-template-columns: 170px minmax(0, 1fr) 44px; align-items: center; gap: 10px; }
 .cg-score__label { font-size: var(--cg-text-sm); }
 .cg-score__bar { height: 12px; border-radius: 0 4px 4px 0; background: var(--cg-color-accent); min-width: 2px; }
-.cg-score__value { font: 700 var(--cg-text-sm) var(--cg-font-data); text-align: right; font-variant-numeric: tabular-nums; }
+.cg-score__value { font: 700 var(--cg-text-sm) var(--cg-font-data); text-align: right; font-variant-numeric: lining-nums tabular-nums; }

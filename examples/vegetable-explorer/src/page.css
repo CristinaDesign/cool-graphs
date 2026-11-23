@@ -13,7 +13,7 @@ h1 { font-weight: 500; font-size: 32px; line-height: 1.1; letter-spacing: -.3px;
 h2 { font-weight: 700; font-size: 26px; line-height: 1.15; text-wrap: balance; }
 h3 { font-weight: 700; font-size: var(--cg-text-lg); }
 code { font: 13px ui-monospace, Menlo, monospace; }
-.num { font-family: var(--cg-font-data); font-variant-numeric: tabular-nums; }
+.num { font-family: var(--cg-font-data); font-variant-numeric: lining-nums tabular-nums; }
 
 /* Header and introduction */
 .top { display: flex; justify-content: space-between; align-items: flex-start; gap: var(--cg-space-4); flex-wrap: wrap; }
@@ -67,7 +67,7 @@ code { font: 13px ui-monospace, Menlo, monospace; }
 .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--cg-space-5) var(--cg-space-6); }
 .fact { display: grid; gap: 4px; align-content: start; min-width: 0; }
 .fact dt { font-size: var(--cg-text-sm); font-weight: 700; color: var(--cg-color-ink-2); }
-.fact .big { font: 700 30px/1.1 var(--cg-font-data); font-variant-numeric: tabular-nums; }
+.fact .big { font: 700 30px/1.1 var(--cg-font-data); font-variant-numeric: lining-nums tabular-nums; }
 .fact .big small { font: 500 var(--cg-text-sm) var(--cg-font-display); color: var(--cg-color-ink-2); margin-left: 4px; }
 .fact .more { font-size: var(--cg-text-sm); color: var(--cg-color-ink-2); }
 .block { display: grid; gap: var(--cg-space-3); }

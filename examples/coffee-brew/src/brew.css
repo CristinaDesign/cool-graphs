@@ -30,7 +30,7 @@ h1 { font-weight: 700; font-size: var(--cg-text-display); line-height: 1.05; let
 .coffee .pic { height: 96px; width: 100%; display: flex; align-items: center; justify-content: center; }
 .coffee .pic img { max-height: 96px; max-width: 80%; object-fit: contain; }
 .coffee b { font-size: var(--cg-text-lg); line-height: 1.2; text-wrap: balance; }
-.coffee .line { font: 500 var(--cg-text-sm)/1.4 var(--cg-font-data); color: var(--cg-color-ink-2); font-variant-numeric: tabular-nums; }
+.coffee .line { font: 500 var(--cg-text-sm)/1.4 var(--cg-font-data); color: var(--cg-color-ink-2); font-variant-numeric: lining-nums tabular-nums; }
 .coffee .tick { position: absolute; top: var(--cg-space-2); right: var(--cg-space-2); display: none; align-items: center; gap: var(--cg-space-1); font-weight: 700; font-size: 13px; }
 .coffee[aria-pressed="true"] .tick { display: inline-flex; }
 
@@ -47,7 +47,7 @@ h1 { font-weight: 700; font-size: var(--cg-text-display); line-height: 1.05; let
 /* Steps */
 .steps-top { display: flex; justify-content: space-between; align-items: center; gap: var(--cg-space-3); flex-wrap: wrap; }
 .stat { font-size: var(--cg-text-sm); color: var(--cg-color-ink-2); display: flex; align-items: baseline; gap: var(--cg-space-1); }
-.stat b { font: 700 24px var(--cg-font-data); color: var(--cg-color-ink); font-variant-numeric: tabular-nums; }
+.stat b { font: 700 24px var(--cg-font-data); color: var(--cg-color-ink); font-variant-numeric: lining-nums tabular-nums; }
 .prog { height: 8px; border-radius: 4px; background: var(--cg-color-panel); overflow: hidden; }
 .prog i { display: block; height: 100%; background: var(--cg-color-ink); border-radius: 4px; transition: width var(--cg-duration) var(--cg-ease); }
 .step { background: var(--cg-color-panel); border-radius: var(--cg-radius-lg); padding: var(--cg-space-5); display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--cg-space-4); align-items: start; }
@@ -56,7 +56,7 @@ h1 { font-weight: 700; font-size: var(--cg-text-display); line-height: 1.05; let
 .step p { max-width: 54ch; }
 .bigs { display: flex; flex-wrap: wrap; gap: var(--cg-space-5); }
 .bigval { display: grid; gap: 0; }
-.bigval .n { font: 700 44px/1.05 var(--cg-font-data); font-variant-numeric: tabular-nums; }
+.bigval .n { font: 700 44px/1.05 var(--cg-font-data); font-variant-numeric: lining-nums tabular-nums; }
 .bigval .n small { font: 500 var(--cg-text-lg) var(--cg-font-display); color: var(--cg-color-ink-2); margin-left: var(--cg-space-1); }
 .bigval .l { font-size: var(--cg-text-sm); color: var(--cg-color-ink-2); }
 /* Stepper: numbered circles joined by a line */
@@ -65,7 +65,7 @@ h1 { font-weight: 700; font-size: var(--cg-text-display); line-height: 1.05; let
 .stepper li:last-child { flex: 0 0 auto; }
 .stepper li:not(:last-child)::after { content: ""; flex: 1 1 auto; min-width: 4px; height: 3px; margin-inline: var(--cg-space-1); border-radius: 2px; background: var(--cg-color-border-soft); }
 .stepper li.done:not(:last-child)::after { background: var(--cg-color-ink); }
-.stepper .dot { flex: none; box-sizing: border-box; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font: 700 var(--cg-text-md) var(--cg-font-data); font-variant-numeric: tabular-nums; border: var(--cg-border-width) solid var(--cg-color-border-soft); color: var(--cg-color-ink-2); background: transparent; padding: 0; }
+.stepper .dot { flex: none; box-sizing: border-box; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font: 700 var(--cg-text-md) var(--cg-font-data); font-variant-numeric: lining-nums tabular-nums; border: var(--cg-border-width) solid var(--cg-color-border-soft); color: var(--cg-color-ink-2); background: transparent; padding: 0; }
 .stepper .done .dot { background: var(--cg-color-ink); border-color: var(--cg-color-ink); color: var(--cg-color-on-ink); cursor: pointer; }
 .stepper .done .dot:hover { opacity: .85; }
 .stepper .done .dot:focus-visible { outline: var(--cg-focus-ring); outline-offset: 3px; }
@@ -84,12 +84,12 @@ h1 { font-weight: 700; font-size: var(--cg-text-display); line-height: 1.05; let
 
 /* Shot timer */
 .timer { display: grid; gap: var(--cg-space-2); background: var(--cg-color-bg); border-radius: var(--cg-radius-sm); padding: var(--cg-space-4); max-width: 460px; }
-.t-read { font: 700 40px/1 var(--cg-font-data); font-variant-numeric: tabular-nums; }
+.t-read { font: 700 40px/1 var(--cg-font-data); font-variant-numeric: lining-nums tabular-nums; }
 .t-read small { font: 500 var(--cg-text-lg) var(--cg-font-display); color: var(--cg-color-ink-2); margin-left: var(--cg-space-1); }
 .t-bar { position: relative; height: 16px; border-radius: 8px; background: var(--cg-color-panel); border: 1px solid var(--cg-color-border-soft); }
 .t-bar .zone { position: absolute; top: -2px; bottom: -2px; background: var(--cg-color-ink); border-radius: 3px; min-width: 6px; }
 .t-bar .mark { position: absolute; top: -6px; width: 4px; height: 24px; margin-left: -2px; background: var(--cg-color-ink-2); border: 2px solid var(--cg-color-bg); border-radius: 3px; box-sizing: content-box; }
-.t-scale { display: flex; justify-content: space-between; font-size: 13px; color: var(--cg-color-ink-2); font-variant-numeric: tabular-nums; }
+.t-scale { display: flex; justify-content: space-between; font-size: 13px; color: var(--cg-color-ink-2); font-variant-numeric: lining-nums tabular-nums; }
 .t-status { font-weight: 700; display: flex; align-items: center; gap: var(--cg-space-2); min-height: var(--cg-target-min); }
 .t-btns { display: flex; gap: var(--cg-space-2); flex-wrap: wrap; }
 

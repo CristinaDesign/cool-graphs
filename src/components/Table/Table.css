@@ -1,5 +1,5 @@
 .cg-table { overflow-x: auto; }
-.cg-table table { border-collapse: separate; border-spacing: 0; width: 100%; font: var(--cg-text-sm) var(--cg-font-data); font-variant-numeric: tabular-nums; }
+.cg-table table { border-collapse: separate; border-spacing: 0; width: 100%; font: var(--cg-text-sm) var(--cg-font-data); font-variant-numeric: lining-nums tabular-nums; }
 .cg-table th, .cg-table td { padding: 6px 10px; text-align: right; border-bottom: 1px solid var(--cg-table-row-border); white-space: nowrap; }
 .cg-table th:first-child, .cg-table td:first-child { text-align: left; }
 /* Dark header band with light text. Rounded at the outer top corners. */

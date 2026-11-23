@@ -299,7 +299,7 @@ body {
 .cg-disclosure summary:focus-visible { outline: var(--cg-focus-ring); outline-offset: 3px; border-radius: 4px; }
 .cg-disclosure__body { margin-top: var(--cg-space-3); }
 .cg-table { overflow-x: auto; }
-.cg-table table { border-collapse: separate; border-spacing: 0; width: 100%; font: var(--cg-text-sm) var(--cg-font-data); font-variant-numeric: tabular-nums; }
+.cg-table table { border-collapse: separate; border-spacing: 0; width: 100%; font: var(--cg-text-sm) var(--cg-font-data); font-variant-numeric: lining-nums tabular-nums; }
 .cg-table th, .cg-table td { padding: 6px 10px; text-align: right; border-bottom: 1px solid var(--cg-table-row-border); white-space: nowrap; }
 .cg-table th:first-child, .cg-table td:first-child { text-align: left; }
 /* Dark header band with light text. Rounded at the outer top corners. */
@@ -316,7 +316,7 @@ body {
 .cg-score { display: grid; grid-template-columns: 170px minmax(0, 1fr) 44px; align-items: center; gap: 10px; }
 .cg-score__label { font-size: var(--cg-text-sm); }
 .cg-score__bar { height: 12px; border-radius: 0 4px 4px 0; background: var(--cg-color-accent); min-width: 2px; }
-.cg-score__value { font: 700 var(--cg-text-sm) var(--cg-font-data); text-align: right; font-variant-numeric: tabular-nums; }
+.cg-score__value { font: 700 var(--cg-text-sm) var(--cg-font-data); text-align: right; font-variant-numeric: lining-nums tabular-nums; }
 .cg-icon { display: inline-block; flex: none; vertical-align: middle; }
 .cg-banner { --accent: var(--cg-banner-info-border); --accent-text: var(--cg-banner-info-text); --fill: var(--cg-banner-info-bg);
   display: flex; align-items: flex-start; gap: var(--cg-space-3); padding: var(--cg-space-3) var(--cg-space-4);
@@ -434,7 +434,7 @@ h1 { font-weight: 700; font-size: 32px; line-height: 1.15; }
 @keyframes cd { from { transform: scaleX(1); } to { transform: scaleX(0); } }
 .pick .spark { position: absolute; left: 50%; top: 45%; width: 8px; height: 8px; border-radius: 50%; pointer-events: none; animation: spark .7s ease-out forwards; }
 @keyframes spark { from { transform: translate(-50%, -50%) scale(1); opacity: 1; } to { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(.2); opacity: 0; } }
-.pick .num, .stats b, .score-big { font-variant-numeric: tabular-nums; }
+.pick .num, .stats b, .score-big { font-variant-numeric: lining-nums tabular-nums; }
 .actions { align-items: center; }
 #nx[hidden] { display: none; }
 .sw-label { white-space: nowrap; }
