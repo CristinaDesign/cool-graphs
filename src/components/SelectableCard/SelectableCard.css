@@ -1,6 +1,6 @@
 .cg-card { font: inherit; text-align: center; cursor: pointer; background: transparent; color: var(--cg-card-text);
   border: var(--cg-border-width) solid var(--cg-card-border-unselected); border-radius: var(--cg-radius-sm); padding: var(--cg-space-3) 14px;
-  display: grid; gap: 6px; align-content: start; width: 100%; position: relative; transition: border-color .2s, background .2s, box-shadow .2s; }
+  display: grid; gap: 6px; align-content: start; width: 100%; position: relative; transition: border-color var(--cg-duration) var(--cg-ease), background var(--cg-duration) var(--cg-ease), box-shadow var(--cg-duration) var(--cg-ease); }
 .cg-card:hover { border-color: var(--cg-card-border); }
 /* Selected = thicker border (2px + 2px inner ring, no layout shift), filled background and a check mark. Not carried by colour alone. */
 .cg-card[aria-pressed="true"] { background: var(--cg-card-bg-selected); border-color: var(--cg-card-border-selected); box-shadow: inset 0 0 0 2px var(--cg-card-border-selected); }
@@ -9,3 +9,11 @@
 .cg-card:focus-visible { outline: var(--cg-focus-ring); outline-offset: 3px; }
 .cg-card b { font-size: var(--cg-text-md); letter-spacing: .25px; }
 .cg-card span { font-size: 13px; line-height: 20px; letter-spacing: .25px; }
+
+/* The check pops in when a card is selected (a small reward for a choice). */
+@media (prefers-reduced-motion: no-preference) {
+  .cg-card[aria-pressed="true"]::after { animation: cg-check-in var(--cg-duration) var(--cg-ease-playful) both; }
+  .cg-card[aria-pressed="true"]::before { animation: cg-tick-in var(--cg-duration) var(--cg-duration-fast) var(--cg-ease) both; }
+}
+@keyframes cg-check-in { from { transform: scale(0); } to { transform: scale(1); } }
+@keyframes cg-tick-in { from { opacity: 0; transform: rotate(45deg) scale(.5); } to { opacity: 1; transform: rotate(45deg) scale(1); } }

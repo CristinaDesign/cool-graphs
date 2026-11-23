@@ -15,3 +15,9 @@
 @media (max-width: 480px) {
   .cg-action-bar > .cg-btn { flex: 1 1 140px; max-width: none; padding-inline: var(--cg-space-3); }
 }
+
+/* It slides up from the bottom when it appears, instead of popping in. */
+@media (prefers-reduced-motion: no-preference) {
+  .cg-action-bar { animation: cg-bar-in var(--cg-duration-slow) var(--cg-ease) both; }
+}
+@keyframes cg-bar-in { from { opacity: 0; transform: translateY(100%); } to { opacity: 1; transform: none; } }

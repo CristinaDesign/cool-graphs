@@ -1,0 +1,18 @@
+import{n as e}from"./rolldown-runtime-sJBDdmOt.js";import{n as t,p as n}from"./iframe-pW4K6Sw-.js";import{n as r,t as i}from"./Button-CVMBmCWs.js";import{n as a,t as o}from"./Switch-BGx5p7_Y.js";import{t as s}from"./Icon-C1-cG83v.js";import{t as c}from"./Icon-9ElUVCYc.js";function l({label:e,children:t}){return(0,u.jsx)(`div`,{className:`cg-action-bar`,role:`group`,"aria-label":e,children:t})}var u;function d(){return(d=e((()=>{u=t(),l.__docgenInfo={description:`A bar fixed to the bottom of the screen that keeps the main action in reach, so nobody has to scroll to find it.
+ Put exactly one primary Button in it, plus at most one or two related controls (a Switch, a secondary Button).
+ It sticks while the page is longer than the screen, and respects the safe area on phones.`,methods:[],displayName:`ActionBar`,props:{label:{required:!0,tsType:{name:`string`},description:`Accessible name for the group, for example "Next question". Screen readers read it when focus enters the bar.`},children:{required:!0,tsType:{name:`ReactReactNode`,raw:`React.ReactNode`},description:`One primary Button first, then optional related controls such as a Switch or a secondary Button.`}}}})))()}var f,p,m,h,g,_,v,y;function b(){return(b=e((()=>{f=n(),d(),r(),a(),c(),p=t(),m={title:`Components/Action bar`,component:l,tags:[`autodocs`],args:{label:`Next question`,children:null},parameters:{layout:`fullscreen`,docs:{description:{component:`A bar fixed to the bottom of the screen with the main action of the page, so it never gets hidden below the fold on a phone. One primary Button, plus optional related controls. Scroll the preview to see it stay in place.`}}}},h=({children:e})=>(0,p.jsxs)(`div`,{style:{padding:`0 16px`,maxWidth:720,margin:`0 auto`},children:[[1,2,3,4,5,6,7,8].map(e=>(0,p.jsxs)(`p`,{style:{margin:`32px 0`},children:[`Page content `,e,`. The bar stays at the bottom while you scroll.`]},e)),e]}),g={render:e=>(0,p.jsx)(h,{children:(0,p.jsx)(l,{...e,label:`Brew`,children:(0,p.jsx)(i,{children:`Start espresso`})})})},_={render:e=>{let[t,n]=(0,f.useState)(!0);return(0,p.jsx)(h,{children:(0,p.jsxs)(l,{...e,children:[(0,p.jsx)(i,{children:`Next`}),(0,p.jsx)(o,{label:`Move on by itself after 5 seconds`,checked:t,onChange:n})]})})}},v={render:e=>(0,p.jsx)(h,{children:(0,p.jsxs)(l,{...e,label:`Recipe`,children:[(0,p.jsxs)(i,{children:[(0,p.jsx)(s,{name:`download`,size:20}),` Download PDF`]}),(0,p.jsx)(i,{variant:`secondary`,children:`Preview`})]})})},y=[`ButtonOnly`,`WithSwitch`,`TwoButtons`],g.parameters={...g.parameters,docs:{...g.parameters?.docs,source:{originalSource:`{
+  render: a => <Page><ActionBar {...a} label="Brew"><Button>Start espresso</Button></ActionBar></Page>
+}`,...g.parameters?.docs?.source}}},_.parameters={..._.parameters,docs:{..._.parameters?.docs,source:{originalSource:`{
+  render: a => {
+    const [on, setOn] = useState(true);
+    return <Page><ActionBar {...a}>
+    <Button>Next</Button>
+    <Switch label="Move on by itself after 5 seconds" checked={on} onChange={setOn} />
+  </ActionBar></Page>;
+  }
+}`,..._.parameters?.docs?.source}}},v.parameters={...v.parameters,docs:{...v.parameters?.docs,source:{originalSource:`{
+  render: a => <Page><ActionBar {...a} label="Recipe">
+    <Button><Icon name="download" size={20} /> Download PDF</Button>
+    <Button variant="secondary">Preview</Button>
+  </ActionBar></Page>
+}`,...v.parameters?.docs?.source}}}})))()}b();export{g as ButtonOnly,v as TwoButtons,_ as WithSwitch,y as __namedExportsOrder,m as default};

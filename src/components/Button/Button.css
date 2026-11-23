@@ -1,6 +1,7 @@
 .cg-btn { font: 700 var(--cg-text-md) var(--cg-font-display); letter-spacing: .25px; cursor: pointer;
   border: var(--cg-border-width) solid var(--cg-button-secondary-border); border-radius: var(--cg-radius-sm);
-  padding: var(--cg-space-3) var(--cg-space-5); transition: background-color .2s, opacity .2s; }
+  padding: var(--cg-space-3) var(--cg-space-5); transition: background-color var(--cg-duration) var(--cg-ease), opacity var(--cg-duration) var(--cg-ease), transform var(--cg-duration-fast) var(--cg-ease); }
+.cg-btn:active:not(:disabled) { transform: scale(.97); }
 .cg-btn--primary { background: var(--cg-button-primary-bg); border-color: var(--cg-button-primary-bg); color: var(--cg-button-primary-text); }
 .cg-btn--primary:hover { opacity: .85; }
 .cg-btn--secondary { background: transparent; color: var(--cg-button-secondary-text); }

@@ -228,8 +228,13 @@
   --cg-space-6: 40px;
   --cg-shadow-raised: 0 6px 18px var(--cg-shadow-color);
   --cg-focus-ring: 3px solid var(--cg-color-accent);
-  --cg-duration: .25s;
+  /* Motion. Durations: press feedback, normal change, something arriving. Curves: ease-out for things
+     that appear or respond, playful (a small overshoot) only for rewards. Animate transform and opacity only. */
+  --cg-duration-fast: .12s;
+  --cg-duration: .2s;
+  --cg-duration-slow: .35s;
   --cg-ease: cubic-bezier(.2, .7, .2, 1);
+  --cg-ease-playful: cubic-bezier(.2, .9, .3, 1.4);
 }
 
 body {
@@ -239,7 +244,9 @@ body {
   font-variant-numeric: lining-nums tabular-nums;
   transition: background-color var(--cg-duration), color var(--cg-duration);
 }
-@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation-duration: .01ms !important; animation-delay: 0s !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
+}
 
 @media (max-width: 480px) {
   :root { --cg-text-display: 40px; }
@@ -266,7 +273,8 @@ body {
 .cg-seg button:focus-visible { outline: var(--cg-focus-ring); outline-offset: 2px; }
 .cg-btn { font: 700 var(--cg-text-md) var(--cg-font-display); letter-spacing: .25px; cursor: pointer;
   border: var(--cg-border-width) solid var(--cg-button-secondary-border); border-radius: var(--cg-radius-sm);
-  padding: var(--cg-space-3) var(--cg-space-5); transition: background-color .2s, opacity .2s; }
+  padding: var(--cg-space-3) var(--cg-space-5); transition: background-color var(--cg-duration) var(--cg-ease), opacity var(--cg-duration) var(--cg-ease), transform var(--cg-duration-fast) var(--cg-ease); }
+.cg-btn:active:not(:disabled) { transform: scale(.97); }
 .cg-btn--primary { background: var(--cg-button-primary-bg); border-color: var(--cg-button-primary-bg); color: var(--cg-button-primary-text); }
 .cg-btn--primary:hover { opacity: .85; }
 .cg-btn--secondary { background: transparent; color: var(--cg-button-secondary-text); }
@@ -284,7 +292,7 @@ body {
 .cg-select:disabled { opacity: .4; cursor: not-allowed; }
 .cg-card { font: inherit; text-align: center; cursor: pointer; background: transparent; color: var(--cg-card-text);
   border: var(--cg-border-width) solid var(--cg-card-border-unselected); border-radius: var(--cg-radius-sm); padding: var(--cg-space-3) 14px;
-  display: grid; gap: 6px; align-content: start; width: 100%; position: relative; transition: border-color .2s, background .2s, box-shadow .2s; }
+  display: grid; gap: 6px; align-content: start; width: 100%; position: relative; transition: border-color var(--cg-duration) var(--cg-ease), background var(--cg-duration) var(--cg-ease), box-shadow var(--cg-duration) var(--cg-ease); }
 .cg-card:hover { border-color: var(--cg-card-border); }
 /* Selected = thicker border (2px + 2px inner ring, no layout shift), filled background and a check mark. Not carried by colour alone. */
 .cg-card[aria-pressed="true"] { background: var(--cg-card-bg-selected); border-color: var(--cg-card-border-selected); box-shadow: inset 0 0 0 2px var(--cg-card-border-selected); }
@@ -293,6 +301,14 @@ body {
 .cg-card:focus-visible { outline: var(--cg-focus-ring); outline-offset: 3px; }
 .cg-card b { font-size: var(--cg-text-md); letter-spacing: .25px; }
 .cg-card span { font-size: 13px; line-height: 20px; letter-spacing: .25px; }
+
+/* The check pops in when a card is selected (a small reward for a choice). */
+@media (prefers-reduced-motion: no-preference) {
+  .cg-card[aria-pressed="true"]::after { animation: cg-check-in var(--cg-duration) var(--cg-ease-playful) both; }
+  .cg-card[aria-pressed="true"]::before { animation: cg-tick-in var(--cg-duration) var(--cg-duration-fast) var(--cg-ease) both; }
+}
+@keyframes cg-check-in { from { transform: scale(0); } to { transform: scale(1); } }
+@keyframes cg-tick-in { from { opacity: 0; transform: rotate(45deg) scale(.5); } to { opacity: 1; transform: rotate(45deg) scale(1); } }
 .cg-disclosure { font-size: 15px; }
 .cg-disclosure summary { min-height: var(--cg-target-min); display: flex; align-items: center; cursor: pointer; color: var(--cg-color-ink-2); font-weight: 500; }
 .cg-disclosure summary:hover { color: var(--cg-color-ink); }
@@ -360,6 +376,12 @@ body {
 @media (max-width: 480px) {
   .cg-action-bar > .cg-btn { flex: 1 1 140px; max-width: none; padding-inline: var(--cg-space-3); }
 }
+
+/* It slides up from the bottom when it appears, instead of popping in. */
+@media (prefers-reduced-motion: no-preference) {
+  .cg-action-bar { animation: cg-bar-in var(--cg-duration-slow) var(--cg-ease) both; }
+}
+@keyframes cg-bar-in { from { opacity: 0; transform: translateY(100%); } to { opacity: 1; transform: none; } }
 
 /* Small helpers the example pages need on top of the design system. */
 .cg-switch__knob .moon, .cg-switch[aria-checked="true"] .cg-switch__knob .sun { display: none; }
@@ -494,19 +516,19 @@ h1 { font-weight: 700; font-size: var(--cg-text-display); line-height: 1.05; let
 
 /* Motion: only when the person has not asked for less */
 @media (prefers-reduced-motion: no-preference) {
-  .coffees .coffee { animation: pop-in .4s cubic-bezier(.2, .9, .3, 1.2) both; }
+  .coffees .coffee { animation: pop-in var(--cg-duration-slow) var(--cg-ease-playful) both; }
   .coffees .coffee:nth-child(2) { animation-delay: .07s; }
   .coffees .coffee:nth-child(3) { animation-delay: .14s; }
-  .coffee { transition: border-color var(--cg-duration) var(--cg-ease), background var(--cg-duration) var(--cg-ease), transform .2s cubic-bezier(.2, .9, .3, 1.4); }
+  .coffee { transition: border-color var(--cg-duration) var(--cg-ease), background var(--cg-duration) var(--cg-ease), transform .2s var(--cg-ease-playful); }
   .coffee:hover { transform: translateY(-4px); }
   .coffee:active { transform: scale(.97); }
-  .coffee .pic img { transition: transform .25s cubic-bezier(.2, .9, .3, 1.4); }
+  .coffee .pic img { transition: transform var(--cg-duration) var(--cg-ease-playful); }
   .coffee:hover .pic img { transform: rotate(-4deg) scale(1.07); }
   .coffee[aria-pressed="true"] .pic img { animation: hop .6s ease-out; }
-  .screen h2 { animation: rise .35s var(--cg-ease) both; }
-  .step { animation: rise .35s var(--cg-ease) both; }
+  .screen h2 { animation: rise var(--cg-duration-slow) var(--cg-ease) both; }
+  .step { animation: rise var(--cg-duration-slow) var(--cg-ease) both; }
   .cg-btn.big:active { transform: scale(.97); }
-  .hero-cup img { animation: cup-pop .7s cubic-bezier(.2, .9, .3, 1.5) both, cheers 1.6s .8s ease-in-out 2; transform-origin: 50% 90%; }
+  .hero-cup img { animation: cup-pop .7s var(--cg-ease-playful) both, cheers 1.6s .8s ease-in-out 2; transform-origin: 50% 90%; }
   .celebrate h2 { animation: rise .5s .25s var(--cg-ease) both; }
   .rain img { top: -80px; animation: fall var(--dur) var(--d) cubic-bezier(.3, .1, .6, 1) both; }
 }

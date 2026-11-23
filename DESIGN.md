@@ -52,6 +52,14 @@ Non-colour tokens (type, spacing, shape, motion) are in `tokens.css`. Type sizes
 - **Corners:** 8px for controls and cards, 16px for large panels, fully round for pills and switches.
 - **Borders:** 2px ink outline is the signature of interactive controls.
 
+**Motion:** motion explains a change or rewards a choice; it never decorates. Three durations and two curves, all tokens: `--cg-duration-fast` (.12 s, press feedback), `--cg-duration` (.2 s, a control changing state), `--cg-duration-slow` (.35 s, something arriving, such as the Action bar or a new question), `--cg-ease` (ease-out, for everything that appears or responds) and `--cg-ease-playful` (a small overshoot, only for rewards such as the check on a selected card or a correct answer).
+- Animate only `transform` and `opacity`. Never animate width, height, top or left (the progress bar's width is the one accepted exception).
+- Things that appear come from where they belong (the bar from the bottom edge, a new question from just below its place), and fade in at the same time. Nothing starts from nothing (no scale from 0 except small marks such as a check).
+- Do not animate things people do many times in a row (typing, arrow keys, hovering a table row). Keep feedback to the press (a 3% shrink on buttons) and the colour change.
+- Anything longer than .35 s must be a reward moment (a correct answer, finishing a brew), must run once, and must never block the next action.
+- No endless loops, except a single decorative hero on a landing page. Timers use a visible countdown, not a pulse.
+- Everything respects `prefers-reduced-motion: reduce`: transitions are removed and animations collapse to one instant frame, set once in the base styles. Meaning never depends on the motion.
+
 ## 4. Components: when to use what
 
 | Need | Use | Avoid |

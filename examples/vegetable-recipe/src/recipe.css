@@ -73,3 +73,11 @@ h1 { font-weight: 700; font-size: var(--cg-text-display); line-height: 1.02; let
 
 @media (max-width: 400px) { .vgrid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .cg-card.veg { min-height: 104px; } }
 @media (prefers-reduced-motion: reduce) { .cg-card.veg[aria-pressed="true"] { animation: none; } }
+
+/* Motion: a new screen rises in; the preview card fades in (opacity only, because the card is scaled to fit). */
+@media (prefers-reduced-motion: no-preference) {
+  .screen > h2, .prevhead { animation: rise var(--cg-duration-slow) var(--cg-ease) both; }
+  .prev { animation: fade-in var(--cg-duration-slow) var(--cg-ease) .1s both; }
+}
+@keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }

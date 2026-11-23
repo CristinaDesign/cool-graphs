@@ -35,6 +35,8 @@ Use this skill for any new page, site, screen or component. The designer is a UX
 - Nothing important depends on a timer. Anything that moves on by itself shows the time left and has a way to turn it off.
 - Content that is not data (for example a fun fact or an opinion) is labelled as such, and is never mixed into the numbers.
 
+**Motion rules (see `DESIGN.md`, Motion):** use `--cg-duration-fast` / `--cg-duration` / `--cg-duration-slow` and `--cg-ease` / `--cg-ease-playful`, animate only transform and opacity, no motion for repeated actions, rewards run once and stay under half a second, no endless loops outside a landing hero, and always respect reduced motion.
+
 ## 4. When something is missing
 
 Do not improvise a one-off style. For a missing colour, follow "To add a new colour" in `DESIGN.md` section 3: primitive first, then a semantic role, then a component token only if needed. Otherwise:

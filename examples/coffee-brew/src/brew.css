@@ -125,19 +125,19 @@ h1 { font-weight: 700; font-size: var(--cg-text-display); line-height: 1.05; let
 
 /* Motion: only when the person has not asked for less */
 @media (prefers-reduced-motion: no-preference) {
-  .coffees .coffee { animation: pop-in .4s cubic-bezier(.2, .9, .3, 1.2) both; }
+  .coffees .coffee { animation: pop-in var(--cg-duration-slow) var(--cg-ease-playful) both; }
   .coffees .coffee:nth-child(2) { animation-delay: .07s; }
   .coffees .coffee:nth-child(3) { animation-delay: .14s; }
-  .coffee { transition: border-color var(--cg-duration) var(--cg-ease), background var(--cg-duration) var(--cg-ease), transform .2s cubic-bezier(.2, .9, .3, 1.4); }
+  .coffee { transition: border-color var(--cg-duration) var(--cg-ease), background var(--cg-duration) var(--cg-ease), transform .2s var(--cg-ease-playful); }
   .coffee:hover { transform: translateY(-4px); }
   .coffee:active { transform: scale(.97); }
-  .coffee .pic img { transition: transform .25s cubic-bezier(.2, .9, .3, 1.4); }
+  .coffee .pic img { transition: transform var(--cg-duration) var(--cg-ease-playful); }
   .coffee:hover .pic img { transform: rotate(-4deg) scale(1.07); }
   .coffee[aria-pressed="true"] .pic img { animation: hop .6s ease-out; }
-  .screen h2 { animation: rise .35s var(--cg-ease) both; }
-  .step { animation: rise .35s var(--cg-ease) both; }
+  .screen h2 { animation: rise var(--cg-duration-slow) var(--cg-ease) both; }
+  .step { animation: rise var(--cg-duration-slow) var(--cg-ease) both; }
   .cg-btn.big:active { transform: scale(.97); }
-  .hero-cup img { animation: cup-pop .7s cubic-bezier(.2, .9, .3, 1.5) both, cheers 1.6s .8s ease-in-out 2; transform-origin: 50% 90%; }
+  .hero-cup img { animation: cup-pop .7s var(--cg-ease-playful) both, cheers 1.6s .8s ease-in-out 2; transform-origin: 50% 90%; }
   .celebrate h2 { animation: rise .5s .25s var(--cg-ease) both; }
   .rain img { top: -80px; animation: fall var(--dur) var(--d) cubic-bezier(.3, .1, .6, 1) both; }
 }

@@ -7,6 +7,8 @@ What changed in the design system, newest first. Dates are 2026.
 - **Vegetable Face-off on a phone:** after Start the header is compact (title on one line, the dark-mode switch in the top corner with its label kept for screen readers), the stats sit on one line and the cards are shorter, so the question and all four options fit on one screen.
 - **Numerals:** all numbers use lining, equal-width digits (set once on `body`).
 
+- **Motion:** new tokens `--cg-duration-fast`, `--cg-duration-slow` and `--cg-ease-playful` (with `--cg-duration` now .2 s), a Motion section in `DESIGN.md`, and one global reduced-motion rule that also stops animations. Buttons shrink slightly when pressed, the Selectable card check pops in, and the Action bar slides up. Examples now use the tokens instead of their own timings.
+
 ## 21 November
 - **Vegetable Recipe** is now much more varied: 12 dish types (tray bake, salad, soup, stir-fry, tortilla or frittata, pasta, curry, gratin, stuffed vegetables, fritters, pan-cooked greens, warm and fresh) with suggested extras such as chicken, chorizo, prawns, salmon, tofu, eggs, chickpeas, feta, yoghurt, rice or pasta, and a third vegetable (onion) where it makes sense. The same pair always gives the same recipe, in any order. The nutrition and cost on the card still count only the two chosen vegetables, and the card says so. Long recipes shrink their text slightly to stay on one page (tested on all 351 pairs).
 
